@@ -5,7 +5,6 @@ import numpy as np
 import random
 
 import torch.hub
-
 # from Augmentations.augmentations import Augment_DRR
 from numba import prange
 import imgaug
@@ -66,6 +65,7 @@ remove_and_create = lambda x: (not shutil.rmtree(x, ignore_errors=True)) and os.
 #     os.remove(os.path.join(datasets_path, 'xr2ulna_n_radius', 'trainB2' if train else 'testB2', f_name))
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = "cpu"
 LR = 400
 HR = 800
 TR = 700
@@ -81,7 +81,8 @@ def upsample_transform(im, HR=700):
     return LR_im
 
 def numpy_2_torch_transform(im):
-    torch_im = (torch.from_numpy(np.transpose(im, [2, 0, 1])[None]).half() / 255.).to(device)
+    torch_im = (torch.from_numpy(np.transpose(im, [2, 0, 1])[None]) / 255.).half().to(device)
+
     return torch_im
 
 def torch_2_numpy_transform(im):
@@ -93,7 +94,6 @@ def super_resolution_transform(im, SR_GAN_path, LR=400, HR=800, TR=700):
     SR_GAN.eval()
     SR_GAN.half()
     if im.shape[1]<TR:
-        downsample_transform()
         LR_im = downsample_transform(im, LR)
         torch_LR_im = numpy_2_torch_transform(LR_im)
         torch_HR_im = SR_GAN(torch_LR_im)
@@ -118,32 +118,26 @@ def create_datasets(configs, dataset_type):
     remove_and_create(configs['Datasets'][dataset_type]['out_dir'])
     for suffix in dir_content(configs['Datasets'][dataset_type]['out_dir'], random=False):
         remove_and_create(os.path.join(configs['Datasets'][dataset_type]['out_dir'], suffix))
+    for side in ['A', 'B']:
+        idx_im_name = 0
+        in_dir_size = size_dir_content(configs['Datasets'][dataset_type]['in_dir_'+side])
+        transform = parse_transform(configs['Datasets'][dataset_type]['transforms_'+side])
+        for im_name in tqdm(dir_content(configs['Datasets'][dataset_type]['in_dir_'+side], random=False)):
+            im_raw = cv2.imread(os.path.join(configs['Datasets'][dataset_type]['in_dir_'+side], im_name))
+            im_raw_transformed = transform(im_raw)
+            test_or_train = np.random.random()
+            if dataset_type == "SR_XR_complete":
+                if im_raw.shape[0] < 700:
+                    test_or_train = TEST
+            elif dataset_type in ["XR_complete_2_XR_complete", "DRR_complete_2_XR_complete"]:
+                pass
 
-    transform_A = parse_transform(configs['Datasets'][dataset_type]['transforms_A'])
-    transform_B = parse_transform(configs['Datasets'][dataset_type]['transforms_B'])
-
-    # train\test_A
-    idx_im_name = 0
-    in_dir_a_size = size_dir_content(configs['Datasets'][dataset_type]['in_dir_A'])
-    for im_name in dir_content(configs['Datasets'][dataset_type]['in_dir_A'], random=False):
-        test_or_train = np.random.random()
-        im_raw_A = cv2.imread(os.path.join(configs['Datasets'][dataset_type]['in_dir_A'], im_name))
-        im_raw_B = cv2.imread(os.path.join(configs['Datasets'][dataset_type]['in_dir_B'], im_name))
-        im_raw_A_transformed = transform_A(im_raw_A)
-        im_raw_B_transformed = transform_B(im_raw_B)
-        if dataset_type == "SR_XR_complete":
-            if im_raw_A.shape[0] < 700:
-                test_or_train = TEST
-        elif dataset_type in ["XR_complete_2_XR_complete", "DRR_complete_2_XR_complete"]:
-            pass
-
-        if test_or_train < 0.9 * in_dir_a_size:
-            suffix = "train"
-        else:
-            suffix = "test"
-        cv2.imwrite(os.path.join(configs['Datasets'][dataset_type]['out_dir'], suffix+"A", im_name), im_raw_A_transformed)
-        cv2.imwrite(os.path.join(configs['Datasets'][dataset_type]['out_dir'], suffix+"B", im_name), im_raw_B_transformed)
-        idx_im_name+=1
+            if test_or_train < 0.9 * in_dir_size:
+                suffix = "train"
+            else:
+                suffix = "test"
+            cv2.imwrite(os.path.join(configs['Datasets'][dataset_type]['out_dir'], suffix+side, im_name), im_raw_transformed)
+            idx_im_name+=1
 
 if __name__ == '__main__':
     configs = SubXRParser()
