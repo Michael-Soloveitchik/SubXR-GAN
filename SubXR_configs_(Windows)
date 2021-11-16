@@ -1,0 +1,220 @@
+{
+    "Data"     : {
+        "fractionated": {
+            "XR"  : {
+                "in_dir"  : "",
+                "out_dir" : ".\\Data\\XR_fractionated"
+            },
+            "DRR" : {
+                "in_dir"  : "",
+                "in_sub_folders": [
+                    "X",
+                    "Y",
+                    "XY",
+                    "YX"
+                ],
+                "out_dir" : ".\\Data\\DRR_fractionated",
+                "out_sub_folders": [
+                    "Input",
+                    "Ulna",
+                    "Radius",
+                    "Ulna_mask",
+                    "Radius_mask",
+                    "Ulna_and_Radius_mask"
+                ]
+            }
+        },
+        "complete"   : {
+            "DRR" : {
+                "in_dir"  : "C:\\Michael research data\\CT - Data - (3)",
+                "in_sub_folders": [
+                    "X",
+                    "Y",
+                    "XY",
+                    "YX"
+                ],
+                "out_dir" : ".\\Data\\DRR_complete",
+                "out_sub_folders": [
+                    "Input",
+                    "Ulna",
+                    "Radius",
+                    "Ulna_mask",
+                    "Radius_mask",
+                    "Ulna_and_Radius_mask"
+                ]
+            },
+            "XR"  : {
+                "in_dir"  : "C:\\Michael research data\\X-Ray - Data - (2)",
+                "out_dir" : ".\\Data\\XR_complete"
+            }
+        }
+    },
+    "Datasets" : {
+        "SR_XR_complete" :    {
+            "in_dir_A"          : ".\\Data\\XR_complete",
+            "in_dir_B"          : ".\\Data\\XR_complete",
+            "out_dir"         : ".\\Datasets\\sr_xr_complete",
+            "out_sub_folders" : [
+                "trainA",
+                "trainB",
+                "testA",
+                "testB"
+            ],
+            "transforms_A": {
+                "down_sample": 400
+            },
+            "transforms_B": {
+                "up_sample": 800
+            }
+        },
+        "XR_complete_2_XR_complete" :    {
+            "in_dir_A"          : ".\\Data\\XR_complete",
+            "in_dir_B"          : ".\\Data\\XR_complete",
+            "out_dir"         : ".\\Datasets\\xr_complete_2_xr_compplete",
+            "out_sub_folders" : [
+                "trainA",
+                "trainB",
+                "testA",
+                "testB"
+            ],
+            "transforms_A": {
+                "SR_GAN": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"
+            },
+            "transforms_B": {
+                "SR_GAN": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"
+            }
+        },
+        "XR_complete_2_Ulna_mask" :    {
+            "in_dir_A"          : ".\\Data\\DRR(Enhanced)_complete",
+            "in_dir_B"          : ".\\Data\\XR_complete",
+            "out_dir"         : ".\\Datasets\\xr_complete_2_xr_compplete",
+            "out_sub_folders" : [
+                "trainA",
+                "trainB",
+                "testA",
+                "testB"
+            ],
+            "transforms_A": {
+                "DRR_2_XR": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"
+
+            },
+            "transforms_B": {
+            }
+        },
+        "XR_complete_2_Radius_mask" :    {
+            "in_dir_A"          : ".\\Data\\DRR(Enhanced)_complete",
+            "in_dir_B"          : ".\\Data\\XR_complete",
+            "out_dir"         : ".\\Datasets\\xr_complete_2_xr_compplete",
+            "out_sub_folders" : [
+                "trainA",
+                "trainB",
+                "testA",
+                "testB"
+            ],
+            "transforms_A": {
+                "DRR_2_XR": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"
+
+            },
+            "transforms_B": {
+
+            }
+        },
+        "DRR_complete_2_XR_complete"    :    {
+            "in_dir_A"         : ".\\Data\\DRR_complete\\Input",
+            "in_dir_B"         : ".\\Data\\XR_complete",
+            "out_dir"         : ".\\Datasets\\drr_complete2xr_complete",
+            "out_sub_folders" : [
+                "trainA",
+                "trainB",
+                "testA",
+                "testB"
+            ],
+            "transforms_A": {
+            },
+            "transforms_B": {
+                "SR_GAN": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"
+            }
+        },
+        "XR_complete_2_Ulna_complete"    :    {
+            "in_dir_A" : ".\\Data\\DRR_complete",
+            "in_dir_B" : ".\\Data\\DRR_complete",
+            "out_dir" : ".\\Datasets\\xr_complete2ulna_complete",
+            "out_sub_folders" : [
+                "trainA",
+                "trainB",
+                "testA",
+                "testB"
+            ],
+            "transforms_A": {
+                "style_transfer": {
+                    "library" : "",
+                    "weights": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
+                    "architecture": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
+                    "kwargs": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
+                    "type": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"                   }
+            },
+            "transforms_B": {
+                "style_transfer": {
+                    "library" : "",
+                    "weights": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
+                    "architecture": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
+                    "kwargs": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
+                    "type": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"                   }
+            }
+        },
+        "XR_complete_2_Radius_complete" :       {
+            "in_dir" : ".\\Data\\DRR_complete",
+            "out_dir" : ".\\Datasets\\xr_complete2radius_complete",
+            "out_sub_folders" : [
+                "trainA",
+                "trainB",
+                "testA",
+                "testB"
+            ],
+            "transforms_A": {
+                "style_transfer": {
+                    "library" : "pytorch",
+                    "weights": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
+                    "architecture": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
+                    "kwargs": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
+                    "type": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"                   }
+            },
+            "transforms_B": {
+                "style_transfer": {
+                    "library" : "pytorch",
+                    "weights": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
+                    "architecture": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
+                    "kwargs": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
+                    "type": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"                   }
+            }
+        },
+        "XR_complete_2_Radius_and_Ulna_complete" :      {
+            "in_dir" : ".\\Data\\DRR_complete",
+            "out_dir" : ".\\Datasets\\xr_complete2radius_and_ulna_complete",
+            "out_sub_folders" : [
+                "trainA",
+                "trainB1",
+                "trainB2",
+                "testA",
+                "testB1",
+                "testB2"
+            ],
+            "transforms_A": {
+                "style_transfer": {
+                    "library" : "pytorch",
+                    "weights": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
+                    "architecture": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
+                    "kwargs": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
+                    "type": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"                   }
+            },
+            "transforms_B": {
+                "style_transfer": {
+                    "library" : "pytorch",
+                    "weights": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
+                    "architecture": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
+                    "kwargs": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
+                    "type": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"                   }
+            }
+        }
+    }
+}

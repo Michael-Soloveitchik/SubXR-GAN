@@ -1,0 +1,2 @@
+python main.py --fine_tuning True --test_LR_path C:\Users\micha\ResearchProjects\SubXR-GAN\Datasets\sr_xr_complete\testA --LR_path C:\Users\micha\ResearchProjects\SubXR-GAN\Datasets\sr_xr_complete\trainA --GT_path C:\Users\micha\ResearchProjects\SubXR-GAN\Datasets\sr_xr_complete\trainB --scale 2
+https://github.com/Lornatang/SRGAN-PyTorch
