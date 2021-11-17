@@ -21,7 +21,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from Models.SR_GAN_big.model import Generator
 
-remove_and_create = lambda x: (not shutil.rmtree(x, ignore_errors=True)) and os.makedirs(x)
+remove_and_create = lambda x: (not shutil.rmtree(x, ignore_errors=False)) and os.makedirs(x)
 # def create_datasets(data_path,datasets_path,f_name, j, train=True):
 #     seed_n = random.randint(0, 2 ** 32 - 1)
 #
