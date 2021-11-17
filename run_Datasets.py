@@ -65,7 +65,7 @@ import utils
 #     os.remove(os.path.join(datasets_path, 'xr2ulna_n_radius', 'trainB2' if train else 'testB2', f_name))
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-device = "cpu"
+# device = "cpu"
 LR = 400
 HR = 800
 TR = 700
@@ -81,18 +81,18 @@ def upsample_transform(im, HR=700):
     return LR_im
 
 def numpy_2_torch_transform(im):
-    torch_im = (torch.from_numpy(np.transpose(im, [2, 0, 1])[None]) / 255.).half().to(device)
+    torch_im = (torch.from_numpy(np.transpose(im, [2, 0, 1])[None]) / 255.).to(device)
 
     return torch_im
 
 def torch_2_numpy_transform(im):
-    np_im = np.transpose(im.float().cpu().detach().numpy(), [1, 2, 0])*255.
+    np_im = np.transpose(im[0].float().cpu().detach().numpy(), [1, 2, 0])*255.
     return np_im
 
 def super_resolution_transform(im, SR_GAN_path, LR=400, HR=800, TR=700):
     SR_GAN.load_state_dict(torch.load(SR_GAN_path, map_location=device))
     SR_GAN.eval()
-    SR_GAN.half()
+    # SR_GAN.half()
     if im.shape[1]<TR:
         LR_im = downsample_transform(im, LR)
         torch_LR_im = numpy_2_torch_transform(LR_im)
@@ -116,7 +116,7 @@ def parse_transform(transform):
 
 def create_datasets(configs, dataset_type):
     for suffix in configs['Datasets'][dataset_type]['out_sub_folders']:
-        # remove_and_create(os.path.join(configs['Datasets'][dataset_type]['out_dir'], suffix))
+        remove_and_create(os.path.join(configs['Datasets'][dataset_type]['out_dir'], suffix))
         create_if_not_exists(os.path.join(configs['Datasets'][dataset_type]['out_dir'], suffix))
     for side in ['A', 'B']:
         idx_im_name = 0
