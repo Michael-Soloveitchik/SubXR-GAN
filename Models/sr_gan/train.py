@@ -144,6 +144,7 @@ def validate(valid_dataloader, epoch, stage) -> float:
     batches = len(valid_dataloader)
     # Set generator model in verification mode.
     generator.eval()
+    generator.half()
     # Initialize the evaluation index.
     total_psnr_value = 0.0
 
@@ -196,7 +197,10 @@ def main() -> None:
         else:
             discriminator.load_state_dict(torch.load(resume_d_weight))
             generator.load_state_dict(torch.load(resume_g_weight))
-
+    generator.eval()
+    generator.half()
+    discriminator.eval()
+    discriminator.half()
     # Initialize the evaluation indicators for the training stage of the generator model.
     best_psnr_value = 0.0
     # Train the generative network stage.
@@ -221,7 +225,10 @@ def main() -> None:
     best_psnr_value = 0.0
     # Load the model weights with the best indicators in the previous round of training.
     generator.load_state_dict(torch.load(os.path.join(exp_dir2, "p-best.pth")))
-    # Training the adversarial network stage.
+    generator.eval()
+    generator.half()
+
+# Training the adversarial network stage.
     for epoch in range(start_epoch, epochs):
         # gc.collect()
         torch.cuda.empty_cache()

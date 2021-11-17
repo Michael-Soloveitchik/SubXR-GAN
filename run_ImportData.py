@@ -16,7 +16,7 @@ def regularize_orientation(full_nh_i_im_path):
     h_i_im_g = cv2.warpAffine(src=nh_i_im_g, M=M, dsize=(nh_i_im_g.shape[1], nh_i_im_g.shape[0]))
     cv2.imwrite(full_nh_i_im_path, h_i_im_g)
 
-
+CROP = 30
 def import_data(configs):
     for data_type in configs['Data']:
         for data_source in configs['Data'][data_type]:
@@ -27,8 +27,13 @@ def import_data(configs):
                         if not os.path.isdir(os.path.join(configs['Data'][data_type][data_source]['in_dir'],dir)):
                             continue
                         for im_path in os.listdir(os.path.join(configs['Data'][data_type][data_source]['in_dir'],dir)):
+                            im_in = cv2.imread(os.path.join(configs['Data'][data_type][data_source]['in_dir'],dir,im_path))
+                            if im_in is None:
+                                continue
+                            im_out = im_in[CROP:-CROP,CROP:-CROP]
                             new_im_path = "xr_"+str(i).zfill(4)+".jpg"
-                            shutil.copy(os.path.join(configs['Data'][data_type][data_source]['in_dir'],dir,im_path), os.path.join(configs['Data'][data_type][data_source]['out_dir'],new_im_path))
+                            cv2.imwrite(os.path.join(configs['Data'][data_type][data_source]['out_dir'],new_im_path),im_out )
+                            # shutil.copy(os.path.join(configs['Data'][data_type][data_source]['in_dir'],dir,im_path), os.path.join(configs['Data'][data_type][data_source]['out_dir'],new_im_path))
                             i += 1
                 elif data_source == 'DRR':
                     i = 0

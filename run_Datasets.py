@@ -20,7 +20,7 @@ from torchvision import transforms
 import numpy as np
 from utils import *
 import matplotlib.pyplot as plt
-from Models.SR_GAN_big.model import Generator
+from Models.sr_gan.model import Generator
 import utils
 # def create_datasets(data_path,datasets_path,f_name, j, train=True):
 #     seed_n = random.randint(0, 2 ** 32 - 1)
@@ -69,7 +69,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 LR = 400
 HR = 800
 TR = 700
-TEST = 0.0
+TEST = 1.1
 SR_GAN = Generator().to(device)
 
 def downsample_transform(im, LR=400):
@@ -120,19 +120,20 @@ def create_datasets(configs, dataset_type):
         create_if_not_exists(os.path.join(configs['Datasets'][dataset_type]['out_dir'], suffix))
     for side in ['A', 'B']:
         idx_im_name = 0
-        in_dir_size = size_dir_content(configs['Datasets'][dataset_type]['in_dir_'+side])
         transform = parse_transform(configs['Datasets'][dataset_type]['transforms_'+side])
+        in_dir_size = size_dir_content(configs['Datasets'][dataset_type]['in_dir_'+side])
         for im_name in tqdm(dir_content(configs['Datasets'][dataset_type]['in_dir_'+side], random=False)):
             im_raw = cv2.imread(os.path.join(configs['Datasets'][dataset_type]['in_dir_'+side], im_name))
-            im_raw_transformed = transform(im_raw)
             test_or_train = np.random.random()
+            im_raw_transformed = transform(im_raw)
             if dataset_type == "SR_XR_complete":
                 if im_raw.shape[0] < 700:
                     test_or_train = TEST
             elif dataset_type in ["XR_complete_2_XR_complete", "DRR_complete_2_XR_complete"]:
                 pass
 
-            if test_or_train < 0.9 * in_dir_size:
+            out_dir_size = size_dir_content(os.path.join(configs['Datasets'][dataset_type]['out_dir'], "train"+side))
+            if test_or_train < 0.9 or ((test_or_train<1.0) and (0.9*in_dir_size <= out_dir_size)) :
                 suffix = "train"
             else:
                 suffix = "test"
@@ -142,7 +143,8 @@ def create_datasets(configs, dataset_type):
 if __name__ == '__main__':
     configs = SubXRParser()
     dataset_type = "DRR_complete_2_XR_complete"
-    create_datasets(configs, dataset_type)
+    create_datasets(configs, "SR_XR_complete")
+    create_datasets(configs, "DRR_complete_2_XR_complete")
     #
     # data_path  = r'C:\Users\micha\PycharmProjects\CT_DRR\Data'
     # datasets_path  = r'C:\Users\micha\PycharmProjects\CT_DRR\Datasets'
