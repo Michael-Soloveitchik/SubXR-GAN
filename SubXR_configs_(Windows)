@@ -26,7 +26,7 @@
         },
         "complete"   : {
             "DRR" : {
-                "in_dir"  : "C:\\Michael research data\\CT - Data - (3)",
+                "in_dir"  : "G:\\האחסון שלי\\CT-DRR\\Data\\segmented CT - Data",
                 "in_sub_folders": [
                     "X",
                     "Y",
@@ -44,7 +44,7 @@
                 ]
             },
             "XR"  : {
-                "in_dir"  : "C:\\Michael research data\\X-Ray - Data - (2)",
+                "in_dir"  : "G:\\האחסון שלי\\CT-DRR\\Data\\clear X-Ray - Data",
                 "out_dir" : ".\\Data\\XR_complete"
             }
         }
@@ -78,10 +78,10 @@
                 "testB"
             ],
             "transforms_A": {
-                "SR_GAN": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"
+                "SR_GAN": [".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"]
             },
             "transforms_B": {
-                "SR_GAN": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"
+                "SR_GAN": [".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"]
             }
         },
         "XR_complete_2_Ulna_mask" :    {
@@ -95,8 +95,7 @@
                 "testB"
             ],
             "transforms_A": {
-                "DRR_2_XR": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"
-
+                "SR_GAN": [".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"]
             },
             "transforms_B": {
             }
@@ -112,8 +111,7 @@
                 "testB"
             ],
             "transforms_A": {
-                "DRR_2_XR": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"
-
+                "SR_GAN": [".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"]
             },
             "transforms_B": {
 
@@ -132,7 +130,7 @@
             "transforms_A": {
             },
             "transforms_B": {
-                "SR_GAN": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"
+                "SR_GAN": [".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"]
             }
         },
         "XR_complete_2_Ulna_complete"    :    {
@@ -146,20 +144,10 @@
                 "testB"
             ],
             "transforms_A": {
-                "style_transfer": {
-                    "library" : "",
-                    "weights": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
-                    "architecture": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
-                    "kwargs": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
-                    "type": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"                   }
-            },
+                 "SR_GAN": [".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"]
+           },
             "transforms_B": {
-                "style_transfer": {
-                    "library" : "",
-                    "weights": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
-                    "architecture": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
-                    "kwargs": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
-                    "type": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"                   }
+                "SR_GAN": [".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"]
             }
         },
         "XR_complete_2_Radius_complete" :       {
@@ -172,22 +160,11 @@
                 "testB"
             ],
             "transforms_A": {
-                "style_transfer": {
-                    "library" : "pytorch",
-                    "weights": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
-                    "architecture": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
-                    "kwargs": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
-                    "type": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"                   }
+                "SR_GAN": [".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"]
             },
             "transforms_B": {
-                "style_transfer": {
-                    "library" : "pytorch",
-                    "weights": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
-                    "architecture": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
-                    "kwargs": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
-                    "type": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"                   }
-            }
-        },
+                 "SR_GAN": [".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"]
+       },
         "XR_complete_2_Radius_and_Ulna_complete" :      {
             "in_dir" : ".\\Data\\DRR_complete",
             "out_dir" : ".\\Datasets\\xr_complete2radius_and_ulna_complete",
@@ -200,21 +177,11 @@
                 "testB2"
             ],
             "transforms_A": {
-                "style_transfer": {
-                    "library" : "pytorch",
-                    "weights": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
-                    "architecture": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
-                    "kwargs": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
-                    "type": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"                   }
+                "SR_GAN": [".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"]
             },
             "transforms_B": {
-                "style_transfer": {
-                    "library" : "pytorch",
-                    "weights": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
-                    "architecture": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
-                    "kwargs": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth",
-                    "type": ".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"                   }
-            }
+                 "SR_GAN": [".\\Models\\SR_GAN_big\\results\\exp000\\p-best.pth"]
+           }
         }
     }
 }
