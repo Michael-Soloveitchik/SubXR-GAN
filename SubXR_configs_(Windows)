@@ -63,12 +63,14 @@
                 "testA",
                 "testB"
             ],
-            "transforms_A": {
-                "down_sample": [400]
-            },
-            "transforms_B": {
-                "up_sample": [800]
-            }
+            "transform_A": {
+                                "down_sample": [400]
+                            },
+            "transform_B": {
+                                "up_sample": [800]
+                            },
+            "augmentation_A": "sr_xr_complete_AU",
+            "augmentation_B": "sr_xr_complete_AU"
         },
         "XR_complete_2_XR_complete" :    {
             "in_dir_A"          : ".\\Data\\XR_complete",
@@ -80,12 +82,14 @@
                 "testA",
                 "testB"
             ],
-            "transforms_A": {
-                "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth"]
-            },
-            "transforms_B": {
-                "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth"]
-            }
+            "transform_A": {
+                                "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth"]
+                            },
+            "transform_B": {
+                                "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth"]
+                            },
+            "augmentation_A": "sr_xr_complete_AU",
+            "augmentation_B": "sr_xr_complete_AU"
         },
         "XR_complete_2_Ulna_mask" :    {
             "in_dir_A"          : ".\\Data\\DRR(Enhanced)_complete",
@@ -97,11 +101,12 @@
                 "testA",
                 "testB"
             ],
-            "transforms_A": {
-                "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth"]
-            },
-            "transforms_B": {
-            }
+            "transform_A": {
+                            },
+            "transform_B": {
+                            },
+            "augmentation_A": "sr_xr_complete_AU",
+            "augmentation_B": "sr_xr_complete_AU"
         },
         "XR_complete_2_Radius_mask" :    {
             "in_dir_A"          : ".\\Data\\DRR(Enhanced)_complete",
@@ -113,12 +118,12 @@
                 "testA",
                 "testB"
             ],
-            "transforms_A": {
-                "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth"]
-            },
-            "transforms_B": {
-
-            }
+            "transform_A": {
+                            },
+            "transform_B": {
+                            },
+            "augmentation_A": "sr_xr_complete_AU",
+            "augmentation_B": "sr_xr_complete_AU"
         },
         "DRR_complete_2_XR_complete"    :    {
             "in_dir_A"         : ".\\Data\\DRR_complete\\Input",
@@ -130,11 +135,13 @@
                 "testA",
                 "testB"
             ],
-            "transforms_A": {
-            },
-            "transforms_B": {
-                "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth"]
-            }
+            "transform_A": {
+                            },
+            "transform_B": {
+                                "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth"]
+                            },
+            "augmentation_A": "sr_xr_complete_AU",
+            "augmentation_B": "sr_xr_complete_AU"
         },
         "XR_complete_2_Ulna_complete"    :    {
             "in_dir_A" : ".\\Data\\DRR_complete",
@@ -146,12 +153,12 @@
                 "testA",
                 "testB"
             ],
-            "transforms_A": {
-                 "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth"]
-            },
-            "transforms_B": {
-                "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth"]
-            }
+            "transform_A": {
+                            },
+            "transform_B": {
+                            },
+            "augmentation_A": "sr_xr_complete_AU",
+            "augmentation_B": "sr_xr_complete_AU"
         },
         "XR_complete_2_Radius_complete" :       {
             "in_dir" : ".\\Data\\DRR_complete",
@@ -162,12 +169,12 @@
                 "testA",
                 "testB"
             ],
-            "transforms_A": {
-                "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth"]
-            },
-            "transforms_B": {
-                 "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth"]
-            }
+            "transform_A": {
+                            },
+            "transform_B": {
+                            },
+            "augmentation_A": "sr_xr_complete_AU",
+            "augmentation_B": "sr_xr_complete_AU"
         },
         "XR_complete_2_Radius_and_Ulna_complete" :      {
             "in_dir" : ".\\Data\\DRR_complete",
@@ -180,12 +187,12 @@
                 "testB1",
                 "testB2"
             ],
-            "transforms_A": {
-                "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth"]
-            },
-            "transforms_B": {
-                 "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth"]
-            }
+            "transform_A": {
+                            },
+            "transform_B": {
+                            },
+            "augmentation_A": "sr_xr_complete_AU",
+            "augmentation_B": "sr_xr_complete_AU"
         }
     }
 }

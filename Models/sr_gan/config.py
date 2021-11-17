@@ -43,8 +43,8 @@ exp_name         = "exp001"                # Experiment name.
 # ==============================================================================
 if mode == "train":
     # Configure dataset.
-    train_dir             = r"C:\Users\micha\ResearchProjects\SubXR-GAN\Datasets\sr_xr_complete\trainB"       # The address of the training dataset.
-    valid_dir             = r"C:\Users\micha\ResearchProjects\SubXR-GAN\Datasets\sr_xr_complete\testB"       # The address of the validating dataset.
+    train_dir             = r"C:\Users\micha\Research\SubXR-GAN\Datasets\sr_xr_complete\trainB"       # The address of the training dataset.
+    valid_dir             = r"C:\Users\micha\Research\SubXR-GAN\Datasets\sr_xr_complete\testB"       # The address of the validating dataset.
     image_size            = 800                          # High-resolution image size in the training dataset.
     batch_size            = 1                          # Dataset batch size.
 
@@ -72,7 +72,7 @@ if mode == "train":
     # Perceptual loss function weight.
     pixel_weight          = 0.02
     content_weight        = 1.0
-    adversarial_weight    = 0.0015
+    adversarial_weight    = 0.0016
 
     # Optimizer.
     p_optimizer           = optim.Adam(generator.parameters(),     0.0001, (0.9, 0.999))  # Generator model learning rate during generator network training.
@@ -84,25 +84,25 @@ if mode == "train":
     g_scheduler           = StepLR(g_optimizer, epochs // 2, 0.1)  # Generator model scheduler during adversarial network training.
 
     # Training log.
-    writer                = SummaryWriter(os.path.join("samples",  "logs", exp_name))
+    writer                = SummaryWriter(os.path.join("OUTPUTs",  "logs", exp_name))
 
     # Additional variables.
     exp_dir1 = os.path.join("samples", exp_name,'models')
     images_dir1 = os.path.join("samples", exp_name,'images')
-    exp_dir2 = os.path.join("results", exp_name)
+    exp_dir2 = os.path.join("RESULTs", exp_name)
 
 # ==============================================================================
 #                              Validate configure
 # ==============================================================================
 if mode == "valid":
     # Additional variables.
-    exp_dir    = os.path.join("results", "test", exp_name)
+    exp_dir    = os.path.join("RESULTs", "test", exp_name)
 
     # Load model.
     model      = Generator().to(device)
-    model_path = f"results/{exp_name}/g-best.pth"
+    model_path = f"RESULTs/{exp_name}/g-best.pth"
 
     # Test data address.
     lr_dir     = f"data/Set5/LRbicx4"
-    sr_dir     = f"results/test/{exp_name}"
+    sr_dir     = f"RESULTs/test/{exp_name}"
     hr_dir     = f"data/Set5/GTmod12"

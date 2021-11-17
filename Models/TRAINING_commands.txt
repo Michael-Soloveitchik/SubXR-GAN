@@ -1,2 +1,7 @@
-python main.py --fine_tuning True --test_LR_path C:\Users\micha\ResearchProjects\SubXR-GAN\Datasets\sr_xr_complete\testA --LR_path C:\Users\micha\ResearchProjects\SubXR-GAN\Datasets\sr_xr_complete\trainA --GT_path C:\Users\micha\ResearchProjects\SubXR-GAN\Datasets\sr_xr_complete\trainB --scale 2
+#SR GAN
 https://github.com/Lornatang/SRGAN-PyTorch
+
+#Cycle GAN
+python train.py --dataroot C:\Users\micha\Research\SubXR-GAN\Datasets\drr_complete_2_xr_complete --name drr_complete_2_xr_complete --model cycle_gan --preprocess none
+op --no_flip C:\ProgramData\Miniconda3\envs\SubXR-GAN\python.exe -m visdom.server -p 8097 &
+
