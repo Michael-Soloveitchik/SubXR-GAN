@@ -18,10 +18,10 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 from torchvision import transforms
 import numpy as np
+from utils import *
 import matplotlib.pyplot as plt
 from Models.SR_GAN_big.model import Generator
-
-remove_and_create = lambda x: (not shutil.rmtree(x, ignore_errors=False)) and os.makedirs(x)
+import utils
 # def create_datasets(data_path,datasets_path,f_name, j, train=True):
 #     seed_n = random.randint(0, 2 ** 32 - 1)
 #
@@ -115,9 +115,9 @@ def parse_transform(transform):
     return lambda x: x
 
 def create_datasets(configs, dataset_type):
-    remove_and_create(configs['Datasets'][dataset_type]['out_dir'])
-    for suffix in dir_content(configs['Datasets'][dataset_type]['out_dir'], random=False):
+    for suffix in configs['Datasets'][dataset_type]['out_sub_folders']:
         remove_and_create(os.path.join(configs['Datasets'][dataset_type]['out_dir'], suffix))
+        create_if_not_exists(os.path.join(configs['Datasets'][dataset_type]['out_dir'], suffix))
     for side in ['A', 'B']:
         idx_im_name = 0
         in_dir_size = size_dir_content(configs['Datasets'][dataset_type]['in_dir_'+side])

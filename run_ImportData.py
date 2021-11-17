@@ -1,6 +1,6 @@
 import os.path
 
-from utils import * #remove_and_create, shutil
+from utils import *
 from SubXR_configs_parser import SubXRParser
 from tqdm import tqdm
 import cv2
@@ -24,6 +24,8 @@ def import_data(configs):
                 if data_source == 'XR':
                     i = 0
                     for dir in tqdm(os.listdir(configs['Data'][data_type][data_source]['in_dir'])):
+                        if not os.path.isdir(dir):
+                            continue
                         for im_path in os.listdir(os.path.join(configs['Data'][data_type][data_source]['in_dir'],dir)):
                             new_im_path = "xr_"+str(i).zfill(4)+".jpg"
                             shutil.copy(os.path.join(configs['Data'][data_type][data_source]['in_dir'],dir,im_path), os.path.join(configs['Data'][data_type][data_source]['out_dir'],new_im_path))
@@ -31,6 +33,8 @@ def import_data(configs):
                 elif data_source == 'DRR':
                     i = 0
                     for dir in tqdm(os.listdir(configs['Data'][data_type][data_source]['in_dir'])):
+                        if not os.path.isdir(dir):
+                            continue
                         for prefix in configs["Data"][data_type][data_source]['out_sub_folders']:
                             for orientation in configs["Data"][data_type][data_source]['in_sub_folders']:
                                 pre_DRR_orientation_path = os.path.join(configs['Data'][data_type][data_source]['in_dir'], dir,
