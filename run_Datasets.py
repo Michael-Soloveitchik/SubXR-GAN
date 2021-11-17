@@ -116,7 +116,7 @@ def parse_transform(transform):
 
 def create_datasets(configs, dataset_type):
     for suffix in configs['Datasets'][dataset_type]['out_sub_folders']:
-        remove_and_create(os.path.join(configs['Datasets'][dataset_type]['out_dir'], suffix))
+        # remove_and_create(os.path.join(configs['Datasets'][dataset_type]['out_dir'], suffix))
         create_if_not_exists(os.path.join(configs['Datasets'][dataset_type]['out_dir'], suffix))
     for side in ['A', 'B']:
         idx_im_name = 0

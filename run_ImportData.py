@@ -23,8 +23,8 @@ def import_data(configs):
             if configs['Data'][data_type][data_source]['in_dir']:
                 if data_source == 'XR':
                     i = 0
-                    for dir in tqdm(os.listdir(configs['Data'][data_type][data_source]['in_dir'])):
-                        if not os.path.isdir(dir):
+                    for dir in tqdm(dir_content(configs['Data'][data_type][data_source]['in_dir'], random=False)):
+                        if not os.path.isdir(os.path.join(configs['Data'][data_type][data_source]['in_dir'],dir)):
                             continue
                         for im_path in os.listdir(os.path.join(configs['Data'][data_type][data_source]['in_dir'],dir)):
                             new_im_path = "xr_"+str(i).zfill(4)+".jpg"
@@ -32,8 +32,8 @@ def import_data(configs):
                             i += 1
                 elif data_source == 'DRR':
                     i = 0
-                    for dir in tqdm(os.listdir(configs['Data'][data_type][data_source]['in_dir'])):
-                        if not os.path.isdir(dir):
+                    for dir in tqdm(dir_content(configs['Data'][data_type][data_source]['in_dir'],random=False)):
+                        if not os.path.isdir(os.path.join(configs['Data'][data_type][data_source]['in_dir'],dir)):
                             continue
                         for prefix in configs["Data"][data_type][data_source]['out_sub_folders']:
                             for orientation in configs["Data"][data_type][data_source]['in_sub_folders']:
@@ -41,7 +41,6 @@ def import_data(configs):
                                                             "pre_DRR",orientation)
                                 prefix_files = sorted([f for f in os.listdir(pre_DRR_orientation_path) if f.startswith(prefix) and f.endswith('.png')])
                                 for im_name in tqdm(prefix_files):
-
                                     new_im_name = str(i).zfill(5)+".jpg"
                                     shutil.copy(os.path.join(pre_DRR_orientation_path, im_name),
                                                 os.path.join(configs['Data'][data_type][data_source]['out_dir'], prefix, new_im_name))

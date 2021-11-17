@@ -3,8 +3,9 @@
         "fractionated": {
             "XR"  : {
                 "in_dir"  : "",
-                "out_dir" : ".\\Data\\XR_fractionated"
-            },
+                "in_sub_folders": [],
+                "out_dir" : "./Data/XR_complete",
+                "out_sub_folders": []            },
             "DRR" : {
                 "in_dir"  : "",
                 "in_sub_folders": [
@@ -45,7 +46,9 @@
             },
             "XR"  : {
                 "in_dir"  : "G:\\My Drive\\CT-DRR\\Data\\clear X-Ray - Data",
-                "out_dir" : ".\\Data\\XR_complete"
+                "in_sub_folders": [],
+                "out_dir" : "./Data/XR_complete",
+                "out_sub_folders": []
             }
         }
     },
