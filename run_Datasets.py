@@ -9,12 +9,13 @@ from utils import *
 import numpy as np
 import utils
 from Augmentations.augmentations import *
-from Transfers.transfers import *
+from Transforms.transforms import *
 
 
 
 TRANSFORMS = {
     "down_sample": downsample_transform,
+    "crop":        crop_transform,
     "up_sample":   upsample_transform,
     "SR_GAN":      super_resolution_transform,
 }
@@ -36,7 +37,12 @@ def parse_augmentation(augmentation):
     augmentation_k = augmentation
     if augmentation:
         if augmentation_k in AUGMENTATIONS:
-                return lambda x,seed : random.seed(seed); np.random.seed(seed); imgaug.random.seed(seed); AUGMENTATIONS[augmentation_k](image=x)['image']
+            def augmentation_lambda(x, seed):
+                random.seed(seed);
+                np.random.seed(seed);
+                imgaug.random.seed(seed)
+                return AUGMENTATIONS[augmentation_k](image=x)['image']
+            return augmentation_lambda
     return lambda x, seed: x
 
 def create_datasets(configs, dataset_type):
@@ -49,26 +55,25 @@ def create_datasets(configs, dataset_type):
         augmentation = parse_augmentation(configs['Datasets'][dataset_type]['augmentation_'+side])
         in_dir_size = size_dir_content(configs['Datasets'][dataset_type]['in_dir_'+side])
         for im_name in tqdm(dir_content(configs['Datasets'][dataset_type]['in_dir_'+side], random=False)):
+            im_raw = cv2.imread(os.path.join(configs['Datasets'][dataset_type]['in_dir_'+side], im_name))
+            im_raw_transformed = transform(im_raw)
+            if dataset_type == "SR_XR_complete":
+                if im_raw.shape[0] < 700:
+                    test_or_train = TEST
+            elif dataset_type in ["XR_complete_2_XR_complete", "DRR_complete_2_XR_complete"]:
+                pass
+
             for seed in range(10):
-                im_raw = cv2.imread(os.path.join(configs['Datasets'][dataset_type]['in_dir_'+side], im_name))
-
-                im_raw_transformed = transform(im_raw)
-
                 im_raw_transformed_augmented = augmentation(im_raw_transformed,seed)
-
                 test_or_train = np.random.random()
-                if dataset_type == "SR_XR_complete":
-                    if im_raw.shape[0] < 700:
-                        test_or_train = TEST
-                elif dataset_type in ["XR_complete_2_XR_complete", "DRR_complete_2_XR_complete"]:
-                    pass
 
                 out_dir_size = size_dir_content(os.path.join(configs['Datasets'][dataset_type]['out_dir'], "train"+side))
-                if test_or_train < 0.9 or ((test_or_train<1.0) and (0.9*in_dir_size <= out_dir_size)) :
+                if test_or_train < 0.9 or ((test_or_train<1.0) and (0.9*in_dir_size*10 <= out_dir_size)) :
                     suffix = "train"
                 else:
                     suffix = "test"
-                cv2.imwrite(os.path.join(configs['Datasets'][dataset_type]['out_dir'], suffix+side, im_name), im_raw_transformed_augmented)
+                im_transformed_augmented_name = im_name.split('_')[0]+'_{idx_im_name}.jpg'.format(idx_im_name=idx_im_name)
+                cv2.imwrite(os.path.join(configs['Datasets'][dataset_type]['out_dir'], suffix+side, im_transformed_augmented_name), im_raw_transformed_augmented)
                 idx_im_name+=1
 
 if __name__ == '__main__':

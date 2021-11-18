@@ -21,6 +21,11 @@ TR = 700
 TEST = 1.1
 SR_GAN = Generator().to(device)
 
+def crop_transform(im, HR=800):
+    h_HR = HR//2
+    im_c_h, im_c_w = im.shape[0]//2, im.shape[1]//2
+    im = im[im_c_h-h_HR:im_c_h+h_HR, im_c_w-h_HR:im_c_w+h_HR]
+    return im
 def downsample_transform(im, LR=400):
     LR_im = cv2.resize(im, (LR, LR))
     return LR_im

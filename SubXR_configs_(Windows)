@@ -140,12 +140,13 @@
                 "testB"
             ],
             "transform_A": {
+                                "crop" : [800]
                             },
             "transform_B": {
                                 "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth"]
                             },
-            "augmentation_A": "sr_xr_complete_AU",
-            "augmentation_B": "sr_xr_complete_AU"
+            "augmentation_A": "drr_complete_2_xr_complete_AU",
+            "augmentation_B": "drr_complete_2_xr_complete_AU"
         },
         "XR_complete_2_Ulna_complete"    :    {
             "in_dir_A" : ".\\Data\\DRR_complete",
