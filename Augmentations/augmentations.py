@@ -38,13 +38,15 @@ import imgaug
 
 
 sr_xr_complete_AU = A.Compose([
-        A.ShiftScaleRotate(shift_limit=0.06, scale_limit=0.2, rotate_limit=5, p=1.0),
+        A.ShiftScaleRotate(shift_limit=0.06, scale_limit=0.2, rotate_limit=15, p=1.0),
+        A.VerticalFlip(p=1),
         A.OneOf([
             A.OpticalDistortion(p=0.3),
             A.Perspective (p=0.3),
-        ], p=0.3),
+        ], p=0.5),
     ])
 drr_complete_2_xr_complete_AU = A.Compose([
+    A.VerticalFlip(p=1),
     A.ShiftScaleRotate(shift_limit=0.06, scale_limit=0.2, rotate_limit=5, p=1.0),
     A.OneOf([
         A.Perspective (p=0.3),

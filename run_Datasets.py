@@ -56,20 +56,20 @@ def create_datasets(configs, dataset_type):
 
                 im_raw_transformed_augmented = augmentation(im_raw_transformed,seed)
 
-            test_or_train = np.random.random()
-            if dataset_type == "SR_XR_complete":
-                if im_raw.shape[0] < 700:
-                    test_or_train = TEST
-            elif dataset_type in ["XR_complete_2_XR_complete", "DRR_complete_2_XR_complete"]:
-                pass
+                test_or_train = np.random.random()
+                if dataset_type == "SR_XR_complete":
+                    if im_raw.shape[0] < 700:
+                        test_or_train = TEST
+                elif dataset_type in ["XR_complete_2_XR_complete", "DRR_complete_2_XR_complete"]:
+                    pass
 
-            out_dir_size = size_dir_content(os.path.join(configs['Datasets'][dataset_type]['out_dir'], "train"+side))
-            if test_or_train < 0.9 or ((test_or_train<1.0) and (0.9*in_dir_size <= out_dir_size)) :
-                suffix = "train"
-            else:
-                suffix = "test"
-            cv2.imwrite(os.path.join(configs['Datasets'][dataset_type]['out_dir'], suffix+side, im_name), im_raw_transformed_augmented)
-            idx_im_name+=1
+                out_dir_size = size_dir_content(os.path.join(configs['Datasets'][dataset_type]['out_dir'], "train"+side))
+                if test_or_train < 0.9 or ((test_or_train<1.0) and (0.9*in_dir_size <= out_dir_size)) :
+                    suffix = "train"
+                else:
+                    suffix = "test"
+                cv2.imwrite(os.path.join(configs['Datasets'][dataset_type]['out_dir'], suffix+side, im_name), im_raw_transformed_augmented)
+                idx_im_name+=1
 
 if __name__ == '__main__':
     configs = SubXRParser()

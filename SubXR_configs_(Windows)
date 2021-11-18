@@ -11,8 +11,10 @@
                 "in_sub_folders": [
                     "X",
                     "Y",
-                    "XY",
-                    "YX"
+                    "XXY",
+                    "XYY",
+                    "YYX",
+                    "YXX"
                 ],
                 "out_dir" : ".\\Data\\DRR_fractionated",
                 "out_sub_folders": [
@@ -27,12 +29,14 @@
         },
         "complete"   : {
             "DRR" : {
-                "in_dir"  : "G:\\My Drive\\CT-DRR\\Data\\segmented CT - Data",
+                "in_dir"  : "G:\\My Drive\\CT-DRR\\Data\\final CT - Data",
                 "in_sub_folders": [
                     "X",
                     "Y",
-                    "XY",
-                    "YX"
+                    "xXY",
+                    "yXY",
+                    "xYX",
+                    "yYX"
                 ],
                 "out_dir" : ".\\Data\\DRR_complete",
                 "out_sub_folders": [
@@ -45,7 +49,7 @@
                 ]
             },
             "XR"  : {
-                "in_dir"  : "G:\\My Drive\\CT-DRR\\Data\\clear X-Ray - Data",
+                "in_dir"  : "G:\\My Drive\\CT-DRR\\Data\\final X-Ray - Data",
                 "in_sub_folders": [],
                 "out_dir" : "./Data/XR_complete",
                 "out_sub_folders": []
