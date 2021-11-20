@@ -38,17 +38,16 @@ import imgaug
 
 
 sr_xr_complete_AU = A.Compose([
-        A.ShiftScaleRotate(shift_limit=0.08, scale_limit=0.2, rotate_limit=-15, p=1.0),
-        A.OneOf([
-            A.OpticalDistortion(p=0.3),
-            A.Perspective (p=0.3),
-        ], p=0.5),
+    A.ShiftScaleRotate(shift_limit=0.05,rotate_limit=10, p=0.5),
+    A.Sharpen(),
+    A.Emboss()    # A.RandomBrightnessContrast(),
+    # # A.Perspective (p=0.3),
     ])
 drr_complete_2_xr_complete_AU = A.Compose([
-    A.ShiftScaleRotate(shift_limit=0.06, scale_limit=0.2, rotate_limit=5, p=1.0),
-    A.OneOf([
-        A.Perspective (p=0.3),
-    ], p=0.3),
+    A.ShiftScaleRotate(shift_limit=0.05, rotate_limit=10, p=0.5),
+    A.Sharpen(),
+    A.Emboss(),   # A.Perspective (p=0.3),
+    # A.RandomBrightnessContrast(),
 ])
 
 OLD = A.Compose([
@@ -70,8 +69,8 @@ OLD = A.Compose([
     ], p=0.4),
     A.OneOf([
         A.CLAHE(clip_limit=2),
-        A.IAASharpen(),
-        A.IAAEmboss(),
+        A.Sharpen(),
+        A.Emboss(),
         A.RandomBrightnessContrast(),
     ], p=0.4),
     A.HueSaturationValue(p=0.3),

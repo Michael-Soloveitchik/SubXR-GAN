@@ -2,6 +2,6 @@
 https://github.com/Lornatang/SRGAN-PyTorch
 
 #Cycle GAN
-python train.py --dataroot C:\Users\micha\Research\SubXR-GAN\Datasets\drr_complete_2_xr_complete --name drr_complete_2_xr_complete --model cycle_gan --preprocess none
-op --no_flip C:\ProgramData\Miniconda3\envs\SubXR-GAN\python.exe -m visdom.server -p 8097 &
+python train.py --dataroot C:\Users\micha\Research\SubXR-GAN\Datasets\drr_complete_2_xr_complete --name drr_complete_2_xr_complete --model cycle_gan --preprocess none --no_flip
+C:\ProgramData\Miniconda3\envs\SubXR-GAN\python.exe -m visdom.server -p 8097 &
 

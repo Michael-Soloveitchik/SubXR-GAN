@@ -22,8 +22,7 @@ TRANSFORMS = {
 
 AUGMENTATIONS = {
     "sr_xr_complete_AU":        sr_xr_complete_AU,
-    "sr_xr_complete_AU":        sr_xr_complete_AU,
-    "sr_xr_complete_AU":        sr_xr_complete_AU
+    "drr_complete_2_xr_complete_AU":        drr_complete_2_xr_complete_AU
 }
 def parse_transform(transform):
     transform = list(transform.items())
@@ -37,30 +36,36 @@ def parse_augmentation(augmentation):
     augmentation_k = augmentation
     if augmentation:
         if augmentation_k in AUGMENTATIONS:
-            def augmentation_lambda(x, seed):
+            def augment_func(x, seed):
                 random.seed(seed);
                 np.random.seed(seed);
                 imgaug.random.seed(seed)
                 return AUGMENTATIONS[augmentation_k](image=x)['image']
-            return augmentation_lambda
+            return augment_func
     return lambda x, seed: x
 
 def create_datasets(configs, dataset_type):
+    remove_and_create(os.path.join(configs['Datasets'][dataset_type]['out_dir']))
+    create_if_not_exists(os.path.join(configs['Datasets'][dataset_type]['out_dir']))
     for suffix in configs['Datasets'][dataset_type]['out_sub_folders']:
         remove_and_create(os.path.join(configs['Datasets'][dataset_type]['out_dir'], suffix))
         create_if_not_exists(os.path.join(configs['Datasets'][dataset_type]['out_dir'], suffix))
+    K = 20
+    in_dir_A_size = size_dir_content(configs['Datasets'][dataset_type]['in_dir_A'])
+    in_dir_B_size = size_dir_content(configs['Datasets'][dataset_type]['in_dir_B'])
+    seeds_permutations = np.random.permutation(max(in_dir_A_size,in_dir_B_size))
     for side in ['A', 'B']:
         idx_im_name = 0
         transform = parse_transform(configs['Datasets'][dataset_type]['transform_'+side])
         augmentation = parse_augmentation(configs['Datasets'][dataset_type]['augmentation_'+side])
         in_dir_size = size_dir_content(configs['Datasets'][dataset_type]['in_dir_'+side])
-        for im_name in tqdm(dir_content(configs['Datasets'][dataset_type]['in_dir_'+side], random=False)):
+        for i, im_name in enumerate(tqdm(dir_content(configs['Datasets'][dataset_type]['in_dir_'+side], random=False))):
             im_raw = cv2.imread(os.path.join(configs['Datasets'][dataset_type]['in_dir_'+side], im_name))
+            seeds = ((np.random.rand(K)*K) + (K*seeds_permutations[i])).astype(int)
             im_raw_transformed = transform(im_raw)
-
-            for seed in range(10):
-                im_raw_transformed_augmented = augmentation(im_raw_transformed,seed)
+            for seed in seeds:
                 test_or_train = np.random.random()
+                im_raw_transformed_augmented = augmentation(im_raw_transformed,seed)
                 if dataset_type == "SR_XR_complete":
                     if im_raw.shape[0] < 700:
                         test_or_train = TEST
