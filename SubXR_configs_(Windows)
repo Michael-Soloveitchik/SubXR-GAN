@@ -96,9 +96,9 @@
             "augmentation_B": "sr_xr_complete_AU"
         },
         "XR_complete_2_Ulna_mask" :    {
-            "in_dir_A"          : ".\\Data\\DRR(Enhanced)_complete",
-            "in_dir_B"          : ".\\Data\\XR_complete",
-            "out_dir"         : ".\\Datasets\\xr_complete_2_xr_compplete",
+            "in_dir_A"          : "./Data/DRR_complete/Input",
+            "in_dir_B"          : "./Data/DRR_complete/Ulna_mask",
+            "out_dir"         : "./Datasets/xr_complete_2_ulna_mask",
             "out_sub_folders" : [
                 "trainA",
                 "trainB",
@@ -109,13 +109,13 @@
                             },
             "transform_B": {
                             },
-            "augmentation_A": "sr_xr_complete_AU",
-            "augmentation_B": "sr_xr_complete_AU"
+            "augmentation_A": "xr_complete_2_ulna_mask_AU",
+            "augmentation_B": "xr_complete_2_ulna_mask_AU"
         },
         "XR_complete_2_Radius_mask" :    {
-            "in_dir_A"          : ".\\Data\\DRR(Enhanced)_complete",
-            "in_dir_B"          : ".\\Data\\XR_complete",
-            "out_dir"         : ".\\Datasets\\xr_complete_2_xr_compplete",
+            "in_dir_A"          : "./Data/DRR_complete/Input",
+            "in_dir_B"          : "./Data/DRR_complete/Radius_mask",
+            "out_dir"         : "./Datasets/xr_complete_2_radius_mask",
             "out_sub_folders" : [
                 "trainA",
                 "trainB",
@@ -126,8 +126,8 @@
                             },
             "transform_B": {
                             },
-            "augmentation_A": "sr_xr_complete_AU",
-            "augmentation_B": "sr_xr_complete_AU"
+            "augmentation_A": "xr_complete_2_radius_mask_AU",
+            "augmentation_B": "xr_complete_2_radius_mask_AU"
         },
         "DRR_complete_2_XR_complete"    :    {
             "in_dir_A"         : ".\\Data\\DRR_complete\\Input",

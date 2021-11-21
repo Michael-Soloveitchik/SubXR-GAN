@@ -12,7 +12,7 @@ from Augmentations.augmentations import *
 from Transforms.transforms import *
 
 
-CROP_SIZE = 640
+CROP_SIZE = 768
 TRANSFORMS = {
     "down_sample": downsample_transform,
     "crop":        crop_transform,
@@ -22,6 +22,7 @@ TRANSFORMS = {
 
 AUGMENTATIONS = {
     "sr_xr_complete_AU":        sr_xr_complete_AU,
+    "drr_complete_2_xr_complete_AU":  drr_complete_2_xr_complete_AU,
     "drr_complete_2_xr_complete_AU":  drr_complete_2_xr_complete_AU
 }
 def parse_transform(transform):
@@ -36,13 +37,8 @@ def parse_augmentation(augmentation):
     augmentation_k = augmentation
     if augmentation:
         if augmentation_k in AUGMENTATIONS:
-            def augment_func(x, seed):
-                random.seed(seed);
-                np.random.seed(seed);
-                imgaug.random.seed(seed)
-                return AUGMENTATIONS[augmentation_k](image=x[(x.shape[0]//2)-(CROP_SIZE//2):x.shape[1]//2+CROP_SIZE//2,(x.shape[0]//2)-(CROP_SIZE//2):x.shape[1]//2+CROP_SIZE//2])['image']
-            return augment_func
-    return lambda x, seed: x
+            return lambda x: AUGMENTATIONS[augmentation_k](image=x[(x.shape[0]//2)-(CROP_SIZE//2):x.shape[1]//2+CROP_SIZE//2,(x.shape[0]//2)+15-(CROP_SIZE//2):x.shape[1]//2+15+CROP_SIZE//2])['image']
+    return lambda x: x
 
 def create_datasets(configs, dataset_type):
     remove_and_create(os.path.join(configs['Datasets'][dataset_type]['out_dir']))
@@ -64,8 +60,11 @@ def create_datasets(configs, dataset_type):
             seeds = np.arange(seeds_permutations[i], seeds_permutations[i] + K)
             im_raw_transformed = transform(im_raw)
             for seed in seeds:
+                random.seed(seed);
+                np.random.seed(seed);
+                imgaug.random.seed(seed)
                 test_or_train = np.random.random()
-                im_raw_transformed_augmented = augmentation(im_raw_transformed,seed)
+                im_raw_transformed_augmented = augmentation(im_raw_transformed)
                 if dataset_type == "SR_XR_complete":
                     if im_raw.shape[0] < 700:
                         test_or_train = TEST
@@ -86,6 +85,8 @@ if __name__ == '__main__':
     dataset_type = "DRR_complete_2_XR_complete"
     create_datasets(configs, "SR_XR_complete")
     create_datasets(configs, "DRR_complete_2_XR_complete")
+    create_datasets(configs, "XR_complete_2_Radius_mask")
+    create_datasets(configs, "XR_complete_2_Ulna_mask")
     #
     # data_path  = r'C:\Users\micha\PycharmProjects\CT_DRR\Data'
     # datasets_path  = r'C:\Users\micha\PycharmProjects\CT_DRR\Datasets'
@@ -95,6 +96,7 @@ if __name__ == '__main__':
     # input_dir =  dir_content('DRR','Input')
     # ulna_dir =   dir_content('DRR','Ulna')
     # radius_dir = dir_content('DRR','Radius')
+
     # xr_dir     = dir_content('X-Ray','')
     #
     # print (len(input_dir),len(ulna_dir),len(radius_dir))
