@@ -3,7 +3,7 @@ import imageio as io
 import cv2
 from tqdm import tqdm
 models_dict = {
-    'Cycle_GAN':r'C:\Users\micha\PycharmProjects\CT_DRR\Models\pytorch-CycleGAN-and-pix2pix\runs\drr2xr_cyclegan1'
+    'Cycle_GAN':r'C:\Users\micha\Research\SubXR-GAN\Models\cycle_gan\SAMPLEs\drr_complete_2_xr_complete'
 }
 GIFs_dict = {}
 for k,p in models_dict.items():

@@ -12,7 +12,7 @@ from Augmentations.augmentations import *
 from Transforms.transforms import *
 
 
-
+CROP_SIZE = 640
 TRANSFORMS = {
     "down_sample": downsample_transform,
     "crop":        crop_transform,
@@ -22,7 +22,7 @@ TRANSFORMS = {
 
 AUGMENTATIONS = {
     "sr_xr_complete_AU":        sr_xr_complete_AU,
-    "drr_complete_2_xr_complete_AU":        drr_complete_2_xr_complete_AU
+    "drr_complete_2_xr_complete_AU":  drr_complete_2_xr_complete_AU
 }
 def parse_transform(transform):
     transform = list(transform.items())
@@ -40,7 +40,7 @@ def parse_augmentation(augmentation):
                 random.seed(seed);
                 np.random.seed(seed);
                 imgaug.random.seed(seed)
-                return AUGMENTATIONS[augmentation_k](image=x)['image']
+                return AUGMENTATIONS[augmentation_k](image=x[(x.shape[0]//2)-(CROP_SIZE//2):x.shape[1]//2+CROP_SIZE//2,(x.shape[0]//2)-(CROP_SIZE//2):x.shape[1]//2+CROP_SIZE//2])['image']
             return augment_func
     return lambda x, seed: x
 
@@ -53,7 +53,7 @@ def create_datasets(configs, dataset_type):
     K = 20
     in_dir_A_size = size_dir_content(configs['Datasets'][dataset_type]['in_dir_A'])
     in_dir_B_size = size_dir_content(configs['Datasets'][dataset_type]['in_dir_B'])
-    seeds_permutations = np.random.permutation(max(in_dir_A_size,in_dir_B_size))
+    seeds_permutations = np.random.permutation(max(in_dir_A_size,in_dir_B_size))*K
     for side in ['A', 'B']:
         idx_im_name = 0
         transform = parse_transform(configs['Datasets'][dataset_type]['transform_'+side])
@@ -61,7 +61,7 @@ def create_datasets(configs, dataset_type):
         in_dir_size = size_dir_content(configs['Datasets'][dataset_type]['in_dir_'+side])
         for i, im_name in enumerate(tqdm(dir_content(configs['Datasets'][dataset_type]['in_dir_'+side], random=False))):
             im_raw = cv2.imread(os.path.join(configs['Datasets'][dataset_type]['in_dir_'+side], im_name))
-            seeds = ((np.random.rand(K)*K) + (K*seeds_permutations[i])).astype(int)
+            seeds = np.arange(seeds_permutations[i], seeds_permutations[i] + K)
             im_raw_transformed = transform(im_raw)
             for seed in seeds:
                 test_or_train = np.random.random()
