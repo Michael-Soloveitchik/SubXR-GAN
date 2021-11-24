@@ -3,18 +3,9 @@ import os.path
 from utils import *
 from SubXR_configs_parser import SubXRParser
 from tqdm import tqdm
+from Transforms.transforms import *
 import cv2
 
-def regularize_orientation(full_nh_i_im_path, angle):
-    nh_i_im = cv2.imread(full_nh_i_im_path)
-    nh_i_im_g = cv2.cvtColor(nh_i_im, cv2.COLOR_BGR2GRAY) if len(nh_i_im.shape) > 2 else nh_i_im
-
-    # Detect keypoints (features) cand calculate the descriptors
-    cy, cx = nh_i_im_g.shape
-    center = (cx // 2, cy // 2)
-    M = cv2.getRotationMatrix2D(center, angle, 1)
-    h_i_im_g = cv2.warpAffine(src=nh_i_im_g, M=M, dsize=(nh_i_im_g.shape[1], nh_i_im_g.shape[0]))
-    cv2.imwrite(full_nh_i_im_path, h_i_im_g)
 
 CROP = 30
 def import_data(configs):
@@ -37,6 +28,8 @@ def import_data(configs):
                             i += 1
                 elif data_source == 'DRR':
                     i = 0
+                    transform = parse_transform(configs['Data'][data_type][data_source]['transform'])
+
                     for dir in tqdm(dir_content(configs['Data'][data_type][data_source]['in_dir'],random=False)):
                         if not os.path.isdir(os.path.join(configs['Data'][data_type][data_source]['in_dir'],dir)):
                             continue
@@ -49,11 +42,14 @@ def import_data(configs):
                                     new_im_name = prefix+'_'+str(i).zfill(5)+".jpg"
                                     shutil.copy(os.path.join(pre_DRR_orientation_path, im_name),
                                                 os.path.join(configs['Data'][data_type][data_source]['out_dir'], prefix, new_im_name))
+                                    rotated_im_path = os.path.join(configs['Data'][data_type][data_source]['out_dir'], prefix, new_im_name)
+                                    nh_i_im = cv2.imread(rotated_im_path)
                                     if ('XY' in orientation):
-                                        regularize_orientation(os.path.join(configs['Data'][data_type][data_source]['out_dir'], prefix, new_im_name), -20)
+                                        nh_i_im = rotate_transform(nh_i_im, -20)
                                     if ('YX' in orientation):
-                                        regularize_orientation(os.path.join(configs['Data'][data_type][data_source]['out_dir'], prefix, new_im_name), +20)
-
+                                        nh_i_im = rotate_transform(nh_i_im, 20)
+                                    nh_i_im = transform(nh_i_im)
+                                    cv2.imwrite(rotated_im_path, nh_i_im)
                                     i+=1
                                     # crop(os.path.join(dataset_path, s, new_totall))
 

@@ -13,31 +13,19 @@ from Transforms.transforms import *
 
 
 CROP_SIZE = 768
-TRANSFORMS = {
-    "down_sample": downsample_transform,
-    "crop":        crop_transform,
-    "up_sample":   upsample_transform,
-    "SR_GAN":      super_resolution_transform,
-}
+
 
 AUGMENTATIONS = {
     "sr_xr_complete_AU":        sr_xr_complete_AU,
     "drr_complete_2_xr_complete_AU":  drr_complete_2_xr_complete_AU,
     "drr_complete_2_xr_complete_AU":  drr_complete_2_xr_complete_AU
 }
-def parse_transform(transform):
-    transform = list(transform.items())
-    if transform:
-        transform_k, transfor_args = transform[0]
-        if transform_k in TRANSFORMS:
-            return lambda x :TRANSFORMS[transform_k](x, *transfor_args)
-    return lambda x: x
 
 def parse_augmentation(augmentation):
     augmentation_k = augmentation
     if augmentation:
         if augmentation_k in AUGMENTATIONS:
-            return lambda x: AUGMENTATIONS[augmentation_k](image=x[(x.shape[0]//2)-(CROP_SIZE//2):x.shape[1]//2+CROP_SIZE//2,(x.shape[0]//2)+15-(CROP_SIZE//2):x.shape[1]//2+15+CROP_SIZE//2])['image']
+            return lambda x: AUGMENTATIONS[augmentation_k](image=x)['image']
     return lambda x: x
 
 def create_datasets(configs, dataset_type):
@@ -82,11 +70,10 @@ def create_datasets(configs, dataset_type):
 
 if __name__ == '__main__':
     configs = SubXRParser()
-    dataset_type = "DRR_complete_2_XR_complete"
     create_datasets(configs, "SR_XR_complete")
     create_datasets(configs, "DRR_complete_2_XR_complete")
-    create_datasets(configs, "XR_complete_2_Radius_mask")
-    create_datasets(configs, "XR_complete_2_Ulna_mask")
+    # create_datasets(configs, "XR_complete_2_Radius_mask")
+    # create_datasets(configs, "XR_complete_2_Ulna_mask")
     #
     # data_path  = r'C:\Users\micha\PycharmProjects\CT_DRR\Data'
     # datasets_path  = r'C:\Users\micha\PycharmProjects\CT_DRR\Datasets'
