@@ -28,7 +28,7 @@ def import_data(configs):
                             i += 1
                 elif data_source == 'DRR':
                     i = 0
-                    transform = parse_transform(configs['Data'][data_type][data_source]['transform'])
+                    transform = parse_transforms(configs['Data'][data_type][data_source]['transform'])
 
                     for dir in tqdm(dir_content(configs['Data'][data_type][data_source]['in_dir'],random=False)):
                         if not os.path.isdir(os.path.join(configs['Data'][data_type][data_source]['in_dir'],dir)):

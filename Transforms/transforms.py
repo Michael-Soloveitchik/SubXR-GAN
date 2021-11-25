@@ -14,14 +14,6 @@ import cv2
 
 
 
-def parse_transform(transform):
-    transform = list(transform[0].items())
-    if transform:
-        transform_k, transfor_args = transform[0]
-        if transform_k in TRANSFORMS:
-            return lambda x :TRANSFORMS[transform_k](x, *transfor_args)
-    return lambda x: x
-
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # device = "cpu"
 LR = 400
@@ -139,10 +131,18 @@ def crop_transform(im, H=800,W=800):
     im_c_h, im_c_w = im.shape[0]//2, im.shape[1]//2
     im = im[im_c_h-H//2:im_c_h+H//2, im_c_w-W//2:im_c_w+W//2]
     return im
-def translate_transform(im, TR=-15):
-    im_new = im * 0.
-    im_new[max(0,TR):im_new.shape[0]+TR,max(0,TR):im_new.shape[1]+TR]=im[max(0,TR):im_new.shape[0]+TR,max(0,TR):im_new.shape[1]+TR]
-    return im_new
+def translate_transform(im, dx, dy):
+    im = np.roll(im, dy, axis=0)
+    im = np.roll(im, dx, axis=1)
+    if dy>0:
+        im[:dy, :] = 0
+    elif dy<0:
+        im[dy:, :] = 0
+    if dx>0:
+        im[:, :dx] = 0
+    elif dx<0:
+        im[:, dx:] = 0
+    return im
 def resize_transform(im, H,W):
     LR_im = cv2.resize(im, (H, W))
     return LR_im
@@ -191,3 +191,20 @@ TRANSFORMS = {
     "SR_GAN":           super_resolution_transform,
     "subtraction_AU":   super_resolution_transform,
 }
+
+
+def parse_transforms(transforms):
+    transforms_functions = []
+    if transforms:
+        for transform_i in transforms:
+            transform_k, transform_args = list(transform_i.items())[0]
+            print(transform_k)
+            print(TRANSFORMS[transform_k])
+            if transform_k in TRANSFORMS:
+                transforms_functions.append((TRANSFORMS[transform_k], transform_args))
+    def transform(x):
+        result = x
+        for (transform_function, args) in transforms_functions:
+            result = transform_function(result, *args)
+        return result
+    return transform

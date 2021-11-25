@@ -49,7 +49,10 @@
                 ],
                 "transform": [
                                 {
-                                    "translate": [-15]
+                                    "translate": [-30,0]
+                                },
+                                {
+                                    "crop": [768]
                                 }
                              ]
             },
@@ -97,18 +100,12 @@
             ],
             "transform_A": [
                                 {
-                                    "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth"]
-                                },
-                                {
-                                    "crop"    : [768]
+                                    "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth", 384,768]
                                 }
                              ],
             "transform_B": [
                                 {
-                                    "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth"]
-                                },
-                                {
-                                    "crop"    : [768]
+                                    "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth", 384, 768]
                                 }
                              ],
             "augmentation_A": "xr_complete_2_xr_compplete_AU",
@@ -158,22 +155,19 @@
                 "testA",
                 "testB"
             ],
+            "transform_A": [
+                                {
+                                    "crop": [768]
+                                }
+                            ],
             "transform_B": [
                                 {
-                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete\\iter_2700_net_G_A.pth"]
+                                    "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth",400,800]
                                 },
                                 {
-                                    "translate_left": [15]
+                                    "crop": [768]
                                 }
-                             ],
-            "transform_B": [
-                                {
-                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete\\iter_2700_net_G_A.pth"]
-                                },
-                                {
-                                    "translate_left": [15]
-                                }
-                             ],
+                            ],
             "augmentation_A": "drr_complete_2_xr_complete_AU",
             "augmentation_B": "drr_complete_2_xr_complete_AU"
         },

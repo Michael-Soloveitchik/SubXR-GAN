@@ -40,7 +40,7 @@ def create_datasets(configs, dataset_type):
     seeds_permutations = np.random.permutation(max(in_dir_A_size,in_dir_B_size))*K
     for side in ['A', 'B']:
         idx_im_name = 0
-        transform = parse_transform(configs['Datasets'][dataset_type]['transform_'+side])
+        transform = parse_transforms(configs['Datasets'][dataset_type]['transform_' + side])
         augmentation = parse_augmentation(configs['Datasets'][dataset_type]['augmentation_'+side])
         in_dir_size = size_dir_content(configs['Datasets'][dataset_type]['in_dir_'+side])
         for i, im_name in enumerate(tqdm(dir_content(configs['Datasets'][dataset_type]['in_dir_'+side], random=False))):
@@ -70,10 +70,10 @@ def create_datasets(configs, dataset_type):
 
 if __name__ == '__main__':
     configs = SubXRParser()
-    create_datasets(configs, "SR_XR_complete")
-    create_datasets(configs, "DRR_complete_2_XR_complete")
-    # create_datasets(configs, "XR_complete_2_Radius_mask")
-    # create_datasets(configs, "XR_complete_2_Ulna_mask")
+    # create_datasets(configs, "SR_XR_complete")
+    # create_datasets(configs, "DRR_complete_2_XR_complete")
+    create_datasets(configs, "XR_complete_2_Radius_mask")
+    create_datasets(configs, "XR_complete_2_Ulna_mask")
     #
     # data_path  = r'C:\Users\micha\PycharmProjects\CT_DRR\Data'
     # datasets_path  = r'C:\Users\micha\PycharmProjects\CT_DRR\Datasets'
