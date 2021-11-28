@@ -1,5 +1,8 @@
 import numpy as np
+import os
+import shutil
 import torch
+from utils import *
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
@@ -11,7 +14,7 @@ import imgaug
 import matplotlib.pyplot as plt
 from Models.sr_gan.model import Generator
 import cv2
-
+import subprocess
 
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -127,7 +130,8 @@ def rotate_transform(nh_i_im, angle):
     h_i_im_g = cv2.warpAffine(src=nh_i_im_g, M=M, dsize=(nh_i_im_g.shape[1], nh_i_im_g.shape[0]))
     h_i_im_g_bgr = cv2.cvtColor(h_i_im_g, cv2.COLOR_GRAY2BGR)
     return h_i_im_g_bgr
-def crop_transform(im, H=800,W=800):
+def crop_transform(im, H=800):
+    W = H + 0
     im_c_h, im_c_w = im.shape[0]//2, im.shape[1]//2
     im = im[im_c_h-H//2:im_c_h+H//2, im_c_w-W//2:im_c_w+W//2]
     return im
@@ -169,19 +173,18 @@ def super_resolution_transform(im, SR_GAN_path, LR=384, HR=768, TR=650):
         HR_im = resize_transform(im, HR,HR)
     return HR_im
 
-def drr_2_xr_style_transform(im, G_style_path, LR=400, HR=800, TR=700):
-    SR_GAN.load_state_dict(torch.load(G_style_path, map_location=device))
-    SR_GAN.eval()
-    # SR_GAN.half()
-    if im.shape[1]<TR:
-        LR_im = resize_transform(im, LR,LR)
-        torch_LR_im = numpy_2_torch_transform(LR_im)
-        torch_HR_im = SR_GAN(torch_LR_im)
-        HR_im = torch_2_numpy_transform(torch_HR_im)
-    else:
-        HR_im = resize_transform(im, HR,HR)
-    return HR_im
-
+def drr_2_xr_style_transform(im,model_dir, name, iter):
+    dir_tmp = os.path.abspath("./Datasets/{name}/temp".format(name=name))
+    create_if_not_exists(dir_tmp)
+    cv2.imwrite(os.path.join(dir_tmp,'drr2xr.jpg'),im)
+    shape_inp = im.shape[0]
+    style_transform_name = model_dir.split('\\')[-1]
+    model_dir = '\\'.join(model_dir.split('\\')[:-2])
+    cmd = (f"python {model_dir}\\test.py --model_suffix _A --dataroot {dir_tmp} --name . --load_iter {iter} --netG unet_128 --checkpoints_dir {os.path.join(model_dir, 'SAMPLES',style_transform_name)} --model test --no_dropout --crop_size {shape_inp} --results_dir {dir_tmp}")
+    subprocess.call(cmd)
+    im = cv2.imread(os.path.join(dir_tmp,f'test_latest_iter{iter}','images','drr2xr_fake.png'))
+    shutil.rmtree(dir_tmp)
+    return im
 
 TRANSFORMS = {
     "down_sample":      resize_transform,
@@ -189,8 +192,10 @@ TRANSFORMS = {
     "translate":        translate_transform,
     "up_sample":        resize_transform,
     "SR_GAN":           super_resolution_transform,
+    "DRR_2_XR" :        drr_2_xr_style_transform,
     "subtraction_AU":   super_resolution_transform,
 }
+
 
 
 def parse_transforms(transforms):

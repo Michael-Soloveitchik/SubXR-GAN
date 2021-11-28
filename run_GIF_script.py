@@ -4,6 +4,7 @@ import cv2
 from tqdm import tqdm
 models_dict = {
     'Cycle_GAN_100':r'C:\Users\micha\Research\SubXR-GAN\Models\cycle_gan\SAMPLEs\drr_complete_2_xr_complete',
+    'Cycle_GAN_1000':r'C:\Users\micha\Research\SubXR-GAN\Models\cycle_gan\SAMPLEs\drr_complete_2_xr_complete_unet128_100',
     'Cycle_GAN_025':r'C:\Users\micha\Research\SubXR-GAN\Models\cycle_gan\SAMPLEs\drr_complete_2_xr_complete_unet128_025'
 }
 GIFs_dict = {}

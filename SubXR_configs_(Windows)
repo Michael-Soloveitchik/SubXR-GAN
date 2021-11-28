@@ -49,7 +49,7 @@
                 ],
                 "transform": [
                                 {
-                                    "translate": [-30,0]
+                                    "translate": [-80,25]
                                 },
                                 {
                                     "crop": [768]
@@ -100,12 +100,18 @@
             ],
             "transform_A": [
                                 {
-                                    "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth", 384,768]
-                                }
+                                    "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth", 400,800]
+                                },
+                              {
+                                  "crop": [768]
+                              }
                              ],
             "transform_B": [
                                 {
-                                    "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth", 384, 768]
+                                    "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth", 400, 800]
+                                },
+                                {
+                                    "crop": [768]
                                 }
                              ],
             "augmentation_A": "xr_complete_2_xr_compplete_AU",
@@ -121,10 +127,19 @@
                 "testA",
                 "testB"
             ],
-            "transform_A": {
-                            },
-            "transform_B": {
-                            },
+            "transform_A": [
+                                {
+                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete", "xr_complete_2_ulna_mask", 2700]
+                                },
+                                 {
+                                     "crop": [768]
+                                 }
+                            ],
+            "transform_B": [
+                                {
+                                    "crop": [768]
+                                }
+                            ],
             "augmentation_A": "xr_complete_2_ulna_mask_AU",
             "augmentation_B": "xr_complete_2_ulna_mask_AU"
         },
@@ -138,10 +153,19 @@
                 "testA",
                 "testB"
             ],
-            "transform_A": {
-                            },
-            "transform_B": {
-                            },
+            "transform_A": [
+                                {
+                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete", "xr_complete_2_radius_mask", 2600]
+                                },
+                                 {
+                                     "crop": [768]
+                                 }
+                            ],
+            "transform_B": [
+                                {
+                                    "crop": [768]
+                                }
+                            ],
             "augmentation_A": "xr_complete_2_radius_mask_AU",
             "augmentation_B": "xr_complete_2_radius_mask_AU"
         },
@@ -173,8 +197,8 @@
         },
         "XR_complete_2_Ulna_complete"    :    {
             "in_dir_A"          : "./Data/DRR_complete/Input",
-            "in_dir_B"          : "./Data/DRR_complete/Radius",
-            "out_dir"         : "./Datasets/xr_complete_2_radius",
+            "in_dir_B"          : "./Data/DRR_complete/Ulna",
+            "out_dir"         : "./Datasets/xr_complete_2_ulna_complete",
             "out_sub_folders" : [
                 "trainA",
                 "trainB",
@@ -183,13 +207,19 @@
             ],
             "transform_A": [
                                 {
-                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete\\iter_2700_net_G_A.pth"]
-                                }
+                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete", "xr_complete_2_ulna_complete", 2700]
+                                },
+                              {
+                                  "crop": [768]
+                              }
                             ],
             "transform_B": [
                                 {
-                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete\\iter_2700_net_G_A.pth"]
-                                }
+                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete", "xr_complete_2_ulna_complete", 2700]
+                                },
+                              {
+                                  "crop": [768]
+                              }
                            ],
             "augmentation_A": "subtraction_AU",
             "augmentation_B": "subtraction_AU"
@@ -205,13 +235,19 @@
             ],
             "transform_A": [
                                 {
-                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete\\iter_2700_net_G_A.pth"]
-                                }
+                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete", "xr_complete2radius_complete", 2700]
+                                },
+                              {
+                                  "crop": [768]
+                              }
                             ],
             "transform_B": [
                                 {
-                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete\\iter_2700_net_G_A.pth"]
-                                }
+                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete", "xr_complete2radius_complete", 2700]
+                                },
+                              {
+                                  "crop": [768]
+                              }
                            ],
             "augmentation_A": "subtraction_AU",
             "augmentation_B": "subtraction_AU"

@@ -73,7 +73,7 @@ if __name__ == '__main__':
     # create_datasets(configs, "SR_XR_complete")
     # create_datasets(configs, "DRR_complete_2_XR_complete")
     create_datasets(configs, "XR_complete_2_Radius_mask")
-    create_datasets(configs, "XR_complete_2_Ulna_mask")
+    # create_datasets(configs, "XR_complete_2_Ulna_mask")
     #
     # data_path  = r'C:\Users\micha\PycharmProjects\CT_DRR\Data'
     # datasets_path  = r'C:\Users\micha\PycharmProjects\CT_DRR\Datasets'
