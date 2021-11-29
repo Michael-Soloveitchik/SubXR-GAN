@@ -175,7 +175,6 @@ def super_resolution_transform(im, SR_GAN_path, LR=384, HR=768, TR=650, dataset_
 
 def drr_2_xr_style_transform(im,model_dir, iter, dataset_type, im_name):
     name = dataset_type.lower()
-    mask_name = '_'.join(name.split('_')[:-1]+['mask'])
     dir_tmp = os.path.abspath("./Datasets/{name}/temp".format(name=name))
     create_if_not_exists(dir_tmp)
     cv2.imwrite(os.path.join(dir_tmp,'drr2xr.jpg'),im)
@@ -185,18 +184,17 @@ def drr_2_xr_style_transform(im,model_dir, iter, dataset_type, im_name):
     cmd = (f"python {model_dir}\\test.py --model_suffix _A --dataroot {dir_tmp} --name . --load_iter {iter} --netG unet_128 --checkpoints_dir {os.path.join(model_dir, 'SAMPLES',style_transform_name)} --model test --no_dropout --crop_size {shape_inp} --results_dir {dir_tmp}")
     subprocess.call(cmd)
     im = cv2.imread(os.path.join(dir_tmp,f'test_latest_iter{iter}','images','drr2xr_fake.png'))
-    if 'radius' or 'ulna' in name:
-        dir_mask1 = os.path.abspath(f"./Datasets/{name}/trainB")
-        dir_mask2 = os.path.abspath(f"./Datasets/{name}/testB")
-        mask_file_path = ''
-        for dir_mask in [dir_mask1,dir_mask2]:
-            if im_name in os.listdir(dir_mask):
-                mask_file_path = os.path.join(dir_mask, im_name)
-                break
-        if mask_file_path:
-            print("EVRIKA!!!")
-            mask = cv2.imread()
-            im = im * mask
+    mask_name = ""
+    if ('ulna' in name):
+        mask_name = 'Ulna_mask'
+    elif('radius' in name):
+        mask_name = 'Radius_mask'
+    if mask_name:
+        dir_mask = os.path.abspath(f"./Data/{mask_name}")
+        mask_file_path = os.path.join(dir_mask, im_name.replace('Input',mask_name))
+        print("EVRIKA!!!")
+        mask = cv2.imread(mask_file_path)
+        im = im * mask
     shutil.rmtree(dir_tmp)
     return im
 

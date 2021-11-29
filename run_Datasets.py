@@ -60,7 +60,7 @@ def create_datasets(configs, dataset_type):
 if __name__ == '__main__':
     configs = SubXRParser()
     # create_datasets(configs, "SR_XR_complete")
-    create_datasets(configs, "DRR_complete_2_XR_complete")
+    # create_datasets(configs, "DRR_complete_2_XR_complete")
     create_datasets(configs, "XR_complete_2_Radius_mask")
     create_datasets(configs, "XR_complete_2_Ulna_mask")
     #

@@ -27,13 +27,14 @@ def import_data(configs):
                             # shutil.copy(os.path.join(configs['Data'][data_type][data_source]['in_dir'],dir,im_path), os.path.join(configs['Data'][data_type][data_source]['out_dir'],new_im_path))
                             i += 1
                 elif data_source == 'DRR':
-                    i = 0
-                    transform = parse_transforms(configs['Data'][data_type][data_source]['transform'])
+
+                    transform = parse_transforms(configs['Data'][data_type][data_source]['transform'],data_type)
 
                     for dir in tqdm(dir_content(configs['Data'][data_type][data_source]['in_dir'],random=False)):
                         if not os.path.isdir(os.path.join(configs['Data'][data_type][data_source]['in_dir'],dir)):
                             continue
                         for prefix in configs["Data"][data_type][data_source]['out_sub_folders']:
+                            i = 0
                             for orientation in configs["Data"][data_type][data_source]['in_sub_folders']:
                                 pre_DRR_orientation_path = os.path.join(configs['Data'][data_type][data_source]['in_dir'], dir,
                                                             "pre_DRR",orientation)
@@ -45,10 +46,10 @@ def import_data(configs):
                                     rotated_im_path = os.path.join(configs['Data'][data_type][data_source]['out_dir'], prefix, new_im_name)
                                     nh_i_im = cv2.imread(rotated_im_path)
                                     if ('XY' in orientation):
-                                        nh_i_im = rotate_transform(nh_i_im, -20)
+                                        nh_i_im = rotate_transform(nh_i_im, -20,data_type,im_name)
                                     if ('YX' in orientation):
-                                        nh_i_im = rotate_transform(nh_i_im, 20)
-                                    nh_i_im = transform(nh_i_im)
+                                        nh_i_im = rotate_transform(nh_i_im, 20,data_type,im_name)
+                                    nh_i_im = transform(nh_i_im,im_name)
                                     cv2.imwrite(rotated_im_path, nh_i_im)
                                     i+=1
                                     # crop(os.path.join(dataset_path, s, new_totall))

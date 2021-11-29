@@ -129,7 +129,7 @@
             ],
             "transform_A": [
                                 {
-                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025, 9000]
+                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025", 9000]
                                 },
                                  {
                                      "crop": [768]
@@ -155,7 +155,7 @@
             ],
             "transform_A": [
                                 {
-                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025", "xr_complete_2_radius_mask", 2600]
+                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025", 9000]
                                 },
                                  {
                                      "crop": [768]
@@ -207,7 +207,7 @@
             ],
             "transform_A": [
                                 {
-                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025, 9000]
+                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025", 9000]
                                 },
                               {
                                   "crop": [768]
@@ -243,7 +243,7 @@
                             ],
             "transform_B": [
                                 {
-                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025, 9000]
+                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025", 9000]
                                 },
                               {
                                   "crop": [768]
