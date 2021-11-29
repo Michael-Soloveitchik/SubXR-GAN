@@ -49,7 +49,7 @@
                 ],
                 "transform": [
                                 {
-                                    "translate": [-80,25]
+                                    "translate": [-70,-25]
                                 },
                                 {
                                     "crop": [768]
@@ -100,7 +100,7 @@
             ],
             "transform_A": [
                                 {
-                                    "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth", 400,800]
+                                    "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth", 400,800, 650]
                                 },
                               {
                                   "crop": [768]
@@ -108,7 +108,7 @@
                              ],
             "transform_B": [
                                 {
-                                    "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth", 400, 800]
+                                    "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth", 400, 800, 650]
                                 },
                                 {
                                     "crop": [768]
@@ -129,7 +129,7 @@
             ],
             "transform_A": [
                                 {
-                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete", "xr_complete_2_ulna_mask", 2700]
+                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025, 9000]
                                 },
                                  {
                                      "crop": [768]
@@ -155,7 +155,7 @@
             ],
             "transform_A": [
                                 {
-                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete", "xr_complete_2_radius_mask", 2600]
+                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025", "xr_complete_2_radius_mask", 2600]
                                 },
                                  {
                                      "crop": [768]
@@ -186,7 +186,7 @@
                             ],
             "transform_B": [
                                 {
-                                    "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth",400,800]
+                                    "SR_GAN": [".\\Models\\sr_gan\\results\\exp000\\p-best.pth",400,800,650]
                                 },
                                 {
                                     "crop": [768]
@@ -207,7 +207,7 @@
             ],
             "transform_A": [
                                 {
-                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete", "xr_complete_2_ulna_complete", 2700]
+                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025, 9000]
                                 },
                               {
                                   "crop": [768]
@@ -215,7 +215,7 @@
                             ],
             "transform_B": [
                                 {
-                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete", "xr_complete_2_ulna_complete", 2700]
+                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025", 9000]
                                 },
                               {
                                   "crop": [768]
@@ -226,7 +226,7 @@
         },
         "XR_complete_2_Radius_complete" :       {
             "in_dir" : ".\\Data\\DRR_complete",
-            "out_dir" : ".\\Datasets\\xr_complete2radius_complete",
+            "out_dir" : ".\\Datasets\\xr_complete_2_radius_complete",
             "out_sub_folders" : [
                 "trainA",
                 "trainB",
@@ -235,7 +235,7 @@
             ],
             "transform_A": [
                                 {
-                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete", "xr_complete2radius_complete", 2700]
+                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025", 9000]
                                 },
                               {
                                   "crop": [768]
@@ -243,7 +243,7 @@
                             ],
             "transform_B": [
                                 {
-                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete", "xr_complete2radius_complete", 2700]
+                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025, 9000]
                                 },
                               {
                                   "crop": [768]

@@ -5,10 +5,12 @@ https://github.com/Lornatang/SRGAN-PyTorch
 python C:\Users\micha\Research\SubXR-GAN\Models\cycle_gan\train.py --batch_size 1 --lambda_identity 1.0  --dataroot C:\Users\micha\Research\SubXR-GAN\Datasets\drr_complete_2_xr_complete --name drr_complete_2_xr_complete_unet128_100 --model cycle_gan --netG unet_128 --preprocess crop --no_flip --crop_size 768 --num_threads 0 --save_by_iter --save_epoch_freq 2000 --save_latest_freq 200 --print_freq 200 --update_html_freq 200 --display_freq 200
 python C:\Users\micha\Research\SubXR-GAN\Models\cycle_gan\train.py --batch_size 1 --lambda_identity 0.25 --dataroot C:\Users\micha\Research\SubXR-GAN\Datasets\drr_complete_2_xr_complete --name drr_complete_2_xr_complete_unet128_025 --model cycle_gan --netG unet_128 --preprocess crop --no_flip --crop_size 768 --num_threads 0 --save_by_iter --save_epoch_freq 2000 --save_latest_freq 200 --print_freq 200 --update_html_freq 200 --display_freq 200
 
-#Cycle GAN + lambdaB
-python C:\Users\micha\Research\SubXR-GAN\Models\cycle_gan\train.py --batch_size 1 --lambda_identity 1.0 --lambda_B 25 --dataroot C:\Users\micha\Research\SubXR-GAN\Datasets\drr_complete_2_xr_complete --name drr_complete_2_xr_complete_unet128_100_lambda_b_25 --model cycle_gan --netG unet_128 --preprocess crop --no_flip --crop_size 768 --num_threads 0 --save_by_iter --save_epoch_freq 2000 --save_latest_freq 200 --print_freq 200 --update_html_freq 200 --display_freq 200
-
+#Cycle GAN + lambdaB 40
+python C:\Users\micha\Research\SubXR-GAN\Models\cycle_gan\train.py --batch_size 1 --lambda_identity 1.00 --lambda_B 40 --dataroot C:\Users\micha\Research\SubXR-GAN\Datasets\drr_complete_2_xr_complete --name drr_complete_2_xr_complete_unet128_100_lambda_b_40 --model cycle_gan --netG unet_128 --preprocess crop --no_flip --crop_size 768 --num_threads 0 --save_by_iter --save_epoch_freq 2000 --save_latest_freq 200 --print_freq 200 --update_html_freq 200 --display_freq 200
+python C:\Users\micha\Research\SubXR-GAN\Models\cycle_gan\train.py --batch_size 1 --lambda_identity 0.10 --lambda_B 40 --dataroot C:\Users\micha\Research\SubXR-GAN\Datasets\drr_complete_2_xr_complete --name drr_complete_2_xr_complete_unet128_010_lambda_b_40 --model cycle_gan --netG unet_128 --preprocess crop --no_flip --crop_size 768 --num_threads 0 --save_by_iter --save_epoch_freq 2000 --save_latest_freq 200 --print_freq 200 --update_html_freq 200 --display_freq 200
 
 lambda_A 20
 C:\ProgramData\Miniconda3\envs\SubXR-GAN\python.exe -m visdom.server -p 8097 &
 
+#Pix2Pix MASK
+python C:\Users\micha\Research\SubXR-GAN\Models\cycle_gan\train.py --batch_size 1 --serial_batches --dataset_mode unaligned --dataroot C:\Users\micha\Research\SubXR-GAN\Datasets\xr_complete_2_radius_mask --name drr_complete_2_xr_complete_unet128 --model pix2pix --netG unet_128 --preprocess crop --no_flip --crop_size 768 --gan_mode lsgan --num_threads 0 --save_by_iter --save_epoch_freq 2000 --save_latest_freq 200 --print_freq 200 --update_html_freq 200 --display_freq 200

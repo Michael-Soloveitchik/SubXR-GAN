@@ -25,7 +25,7 @@ TR = 700
 TEST = 1.1
 SR_GAN = Generator().to(device)
 
-def padding_transform(im, const=70):
+def padding_transform(im, const=70, dataset_type="", im_name=""):
     return np.pad(im,[(const,),(const,),(0,)],mode='constant')
 
 def self_crop_transform(im):
@@ -114,11 +114,11 @@ def self_rotate_transform(im):
         new_angle = get_orientation_of_image(im)
     return im, cum_angle
 
-def flip_rotate_90_counter_clockwisw(im):
+def flip_rotate_90_counter_clockwisw(im, dataset_type, im_name):
     im=cv2.transpose(im)
     im=cv2.flip(im,flipCode=1)
     return im
-def rotate_transform(nh_i_im, angle):
+def rotate_transform(nh_i_im, angle, dataset_type, im_name):
     nh_i_im_g = cv2.cvtColor(nh_i_im, cv2.COLOR_BGR2GRAY) if len(nh_i_im.shape) > 2 else nh_i_im
     if np.abs(np.abs(angle)-90) < 45:
         nh_i_im_g = flip_rotate_90_counter_clockwisw(nh_i_im_g)
@@ -130,12 +130,12 @@ def rotate_transform(nh_i_im, angle):
     h_i_im_g = cv2.warpAffine(src=nh_i_im_g, M=M, dsize=(nh_i_im_g.shape[1], nh_i_im_g.shape[0]))
     h_i_im_g_bgr = cv2.cvtColor(h_i_im_g, cv2.COLOR_GRAY2BGR)
     return h_i_im_g_bgr
-def crop_transform(im, H=800):
+def crop_transform(im, H=800, dataset_type="", im_name=""):
     W = H + 0
     im_c_h, im_c_w = im.shape[0]//2, im.shape[1]//2
     im = im[im_c_h-H//2:im_c_h+H//2, im_c_w-W//2:im_c_w+W//2]
     return im
-def translate_transform(im, dx, dy):
+def translate_transform(im, dx, dy, dataset_type, im_name):
     im = np.roll(im, dy, axis=0)
     im = np.roll(im, dx, axis=1)
     if dy>0:
@@ -147,33 +147,35 @@ def translate_transform(im, dx, dy):
     elif dx<0:
         im[:, dx:] = 0
     return im
-def resize_transform(im, H,W):
+def resize_transform(im, H,W, dataset_type, im_name):
     LR_im = cv2.resize(im, (H, W))
     return LR_im
 
-def numpy_2_torch_transform(im):
+def numpy_2_torch_transform(im, dataset_type, im_name):
     torch_im = (torch.from_numpy(np.transpose(im, [2, 0, 1])[None]) / 255.).to(device)
 
     return torch_im
 
-def torch_2_numpy_transform(im):
+def torch_2_numpy_transform(im, dataset_type, im_name):
     np_im = np.transpose(im[0].float().cpu().detach().numpy(), [1, 2, 0])*255.
     return np_im
 
-def super_resolution_transform(im, SR_GAN_path, LR=384, HR=768, TR=650):
+def super_resolution_transform(im, SR_GAN_path, LR=384, HR=768, TR=650, dataset_type="", im_name=""):
     SR_GAN.load_state_dict(torch.load(SR_GAN_path, map_location=device))
     SR_GAN.eval()
     # SR_GAN.half()
     if im.shape[1]<TR:
-        LR_im = resize_transform(im, LR,LR)
-        torch_LR_im = numpy_2_torch_transform(LR_im)
+        LR_im = resize_transform(im, LR,LR,dataset_type, im_name)
+        torch_LR_im = numpy_2_torch_transform(LR_im,dataset_type, im_name)
         torch_HR_im = SR_GAN(torch_LR_im)
-        HR_im = torch_2_numpy_transform(torch_HR_im)
+        HR_im = torch_2_numpy_transform(torch_HR_im,dataset_type, im_name)
     else:
-        HR_im = resize_transform(im, HR,HR)
+        HR_im = resize_transform(im, HR,HR,dataset_type, im_name)
     return HR_im
 
-def drr_2_xr_style_transform(im,model_dir, name, iter):
+def drr_2_xr_style_transform(im,model_dir, iter, dataset_type, im_name):
+    name = dataset_type.lower()
+    mask_name = '_'.join(name.split('_')[:-1]+['mask'])
     dir_tmp = os.path.abspath("./Datasets/{name}/temp".format(name=name))
     create_if_not_exists(dir_tmp)
     cv2.imwrite(os.path.join(dir_tmp,'drr2xr.jpg'),im)
@@ -183,6 +185,18 @@ def drr_2_xr_style_transform(im,model_dir, name, iter):
     cmd = (f"python {model_dir}\\test.py --model_suffix _A --dataroot {dir_tmp} --name . --load_iter {iter} --netG unet_128 --checkpoints_dir {os.path.join(model_dir, 'SAMPLES',style_transform_name)} --model test --no_dropout --crop_size {shape_inp} --results_dir {dir_tmp}")
     subprocess.call(cmd)
     im = cv2.imread(os.path.join(dir_tmp,f'test_latest_iter{iter}','images','drr2xr_fake.png'))
+    if 'radius' or 'ulna' in name:
+        dir_mask1 = os.path.abspath(f"./Datasets/{name}/trainB")
+        dir_mask2 = os.path.abspath(f"./Datasets/{name}/testB")
+        mask_file_path = ''
+        for dir_mask in [dir_mask1,dir_mask2]:
+            if im_name in os.listdir(dir_mask):
+                mask_file_path = os.path.join(dir_mask, im_name)
+                break
+        if mask_file_path:
+            print("EVRIKA!!!")
+            mask = cv2.imread()
+            im = im * mask
     shutil.rmtree(dir_tmp)
     return im
 
@@ -198,7 +212,7 @@ TRANSFORMS = {
 
 
 
-def parse_transforms(transforms):
+def parse_transforms(transforms, dataset_type):
     transforms_functions = []
     if transforms:
         for transform_i in transforms:
@@ -206,10 +220,10 @@ def parse_transforms(transforms):
             print(transform_k)
             print(TRANSFORMS[transform_k])
             if transform_k in TRANSFORMS:
-                transforms_functions.append((TRANSFORMS[transform_k], transform_args))
-    def transform(x):
+                transforms_functions.append((TRANSFORMS[transform_k], transform_args+[dataset_type]))
+    def transform(x,im_name):
         result = x
-        for (transform_function, args) in transforms_functions:
-            result = transform_function(result, *args)
+        for (transform_function, transform_args) in transforms_functions:
+            result = transform_function(result, *(transform_args+[im_name]))
         return result
     return transform

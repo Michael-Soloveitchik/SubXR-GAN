@@ -15,22 +15,11 @@ from Transforms.transforms import *
 CROP_SIZE = 768
 
 
-AUGMENTATIONS = {
-    "sr_xr_complete_AU":        sr_xr_complete_AU,
-    "drr_complete_2_xr_complete_AU":  drr_complete_2_xr_complete_AU,
-    "drr_complete_2_xr_complete_AU":  drr_complete_2_xr_complete_AU
-}
 
-def parse_augmentation(augmentation):
-    augmentation_k = augmentation
-    if augmentation:
-        if augmentation_k in AUGMENTATIONS:
-            return lambda x: AUGMENTATIONS[augmentation_k](image=x)['image']
-    return lambda x: x
 
 def create_datasets(configs, dataset_type):
     remove_and_create(os.path.join(configs['Datasets'][dataset_type]['out_dir']))
-    create_if_not_exists(os.path.join(configs['Datasets'][dataset_type]['out_dir']))
+    # create_if_not_exists(os.path.join(configs['Datasets'][dataset_type]['out_dir']))
     for suffix in configs['Datasets'][dataset_type]['out_sub_folders']:
         remove_and_create(os.path.join(configs['Datasets'][dataset_type]['out_dir'], suffix))
         create_if_not_exists(os.path.join(configs['Datasets'][dataset_type]['out_dir'], suffix))
@@ -40,13 +29,13 @@ def create_datasets(configs, dataset_type):
     seeds_permutations = np.random.permutation(max(in_dir_A_size,in_dir_B_size))*K
     for side in ['A', 'B']:
         idx_im_name = 0
-        transform = parse_transforms(configs['Datasets'][dataset_type]['transform_' + side])
         augmentation = parse_augmentation(configs['Datasets'][dataset_type]['augmentation_'+side])
         in_dir_size = size_dir_content(configs['Datasets'][dataset_type]['in_dir_'+side])
+        transform = parse_transforms(configs['Datasets'][dataset_type]['transform_' + side],dataset_type)
         for i, im_name in enumerate(tqdm(dir_content(configs['Datasets'][dataset_type]['in_dir_'+side], random=False))):
             im_raw = cv2.imread(os.path.join(configs['Datasets'][dataset_type]['in_dir_'+side], im_name))
             seeds = np.arange(seeds_permutations[i], seeds_permutations[i] + K)
-            im_raw_transformed = transform(im_raw)
+            im_raw_transformed = transform(im_raw,im_name)
             for seed in seeds:
                 random.seed(seed);
                 np.random.seed(seed);
@@ -71,9 +60,9 @@ def create_datasets(configs, dataset_type):
 if __name__ == '__main__':
     configs = SubXRParser()
     # create_datasets(configs, "SR_XR_complete")
-    # create_datasets(configs, "DRR_complete_2_XR_complete")
+    create_datasets(configs, "DRR_complete_2_XR_complete")
     create_datasets(configs, "XR_complete_2_Radius_mask")
-    # create_datasets(configs, "XR_complete_2_Ulna_mask")
+    create_datasets(configs, "XR_complete_2_Ulna_mask")
     #
     # data_path  = r'C:\Users\micha\PycharmProjects\CT_DRR\Data'
     # datasets_path  = r'C:\Users\micha\PycharmProjects\CT_DRR\Datasets'
