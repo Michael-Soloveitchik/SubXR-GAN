@@ -1,0 +1,56 @@
+create web directory ./SAMPLEs\drr_complete_2_xr_complete\web...
+learning rate 0.0002000 -> 0.0002000
+(epoch: 100, iters: 100, time: 0.951, data: 0.034) D_A: 0.155 G_A: 0.347 cycle_A: 0.548 idt_A: 0.305 D_B: 0.217 G_B: 0.386 cycle_B: 0.776 idt_B: 0.247
+saving the latest model (epoch 1, total_iters 100)
+(epoch: 200, iters: 200, time: 0.969, data: 0.022) D_A: 0.285 G_A: 0.327 cycle_A: 0.271 idt_A: 0.217 D_B: 0.182 G_B: 0.245 cycle_B: 0.489 idt_B: 0.125
+saving the latest model (epoch 1, total_iters 200)
+(epoch: 300, iters: 300, time: 0.978, data: 0.024) D_A: 0.196 G_A: 0.340 cycle_A: 0.270 idt_A: 0.139 D_B: 0.213 G_B: 0.278 cycle_B: 0.368 idt_B: 0.110
+saving the latest model (epoch 1, total_iters 300)
+(epoch: 400, iters: 400, time: 33.922, data: 0.020) D_A: 0.226 G_A: 0.189 cycle_A: 0.193 idt_A: 0.151 D_B: 0.166 G_B: 0.436 cycle_B: 0.553 idt_B: 0.099
+saving the latest model (epoch 1, total_iters 400)
+(epoch: 500, iters: 500, time: 0.979, data: 0.017) D_A: 0.260 G_A: 0.181 cycle_A: 0.180 idt_A: 0.154 D_B: 0.185 G_B: 0.236 cycle_B: 0.300 idt_B: 0.079
+saving the latest model (epoch 1, total_iters 500)
+(epoch: 600, iters: 600, time: 1.042, data: 0.029) D_A: 0.286 G_A: 0.605 cycle_A: 0.158 idt_A: 0.164 D_B: 0.219 G_B: 0.301 cycle_B: 0.409 idt_B: 0.092
+saving the latest model (epoch 1, total_iters 600)
+(epoch: 700, iters: 700, time: 1.063, data: 0.024) D_A: 0.225 G_A: 0.362 cycle_A: 0.171 idt_A: 0.163 D_B: 0.240 G_B: 0.296 cycle_B: 0.350 idt_B: 0.082
+saving the latest model (epoch 1, total_iters 700)
+(epoch: 800, iters: 800, time: 3.117, data: 0.019) D_A: 0.154 G_A: 0.332 cycle_A: 0.222 idt_A: 0.109 D_B: 0.392 G_B: 0.735 cycle_B: 0.266 idt_B: 0.096
+saving the latest model (epoch 1, total_iters 800)
+(epoch: 900, iters: 900, time: 1.055, data: 0.026) D_A: 0.265 G_A: 0.259 cycle_A: 0.170 idt_A: 0.103 D_B: 0.252 G_B: 0.532 cycle_B: 0.284 idt_B: 0.071
+saving the latest model (epoch 1, total_iters 900)
+(epoch: 1000, iters: 1000, time: 1.069, data: 0.023) D_A: 0.222 G_A: 0.369 cycle_A: 0.147 idt_A: 0.148 D_B: 0.248 G_B: 0.262 cycle_B: 0.294 idt_B: 0.057
+saving the latest model (epoch 1, total_iters 1000)
+(epoch: 1100, iters: 1100, time: 1.108, data: 0.026) D_A: 0.188 G_A: 0.239 cycle_A: 0.194 idt_A: 0.159 D_B: 0.380 G_B: 0.314 cycle_B: 0.405 idt_B: 0.060
+saving the latest model (epoch 1, total_iters 1100)
+(epoch: 1200, iters: 1200, time: 3.186, data: 0.024) D_A: 0.219 G_A: 0.314 cycle_A: 0.136 idt_A: 0.090 D_B: 0.414 G_B: 0.703 cycle_B: 0.250 idt_B: 0.071
+saving the latest model (epoch 1, total_iters 1200)
+(epoch: 1300, iters: 1300, time: 1.094, data: 0.024) D_A: 0.193 G_A: 0.296 cycle_A: 0.269 idt_A: 0.125 D_B: 0.120 G_B: 0.479 cycle_B: 0.444 idt_B: 0.062
+saving the latest model (epoch 1, total_iters 1300)
+(epoch: 1400, iters: 1400, time: 1.108, data: 0.027) D_A: 0.376 G_A: 0.406 cycle_A: 0.200 idt_A: 0.120 D_B: 0.187 G_B: 0.487 cycle_B: 0.286 idt_B: 0.059
+saving the latest model (epoch 1, total_iters 1400)
+(epoch: 1500, iters: 1500, time: 1.059, data: 0.031) D_A: 0.235 G_A: 0.304 cycle_A: 0.131 idt_A: 0.116 D_B: 0.195 G_B: 0.309 cycle_B: 0.321 idt_B: 0.046
+saving the latest model (epoch 1, total_iters 1500)
+(epoch: 1600, iters: 1600, time: 3.425, data: 0.024) D_A: 0.261 G_A: 0.277 cycle_A: 0.145 idt_A: 0.095 D_B: 0.204 G_B: 0.372 cycle_B: 0.402 idt_B: 0.045
+saving the latest model (epoch 1, total_iters 1600)
+(epoch: 1700, iters: 1700, time: 1.090, data: 0.021) D_A: 0.266 G_A: 0.330 cycle_A: 0.154 idt_A: 0.128 D_B: 0.329 G_B: 0.296 cycle_B: 0.331 idt_B: 0.049
+saving the latest model (epoch 1, total_iters 1700)
+(epoch: 1800, iters: 1800, time: 1.099, data: 0.022) D_A: 0.224 G_A: 0.301 cycle_A: 0.126 idt_A: 0.065 D_B: 0.229 G_B: 0.550 cycle_B: 0.290 idt_B: 0.038
+saving the latest model (epoch 1, total_iters 1800)
+(epoch: 1900, iters: 1900, time: 1.120, data: 0.020) D_A: 0.357 G_A: 0.493 cycle_A: 0.124 idt_A: 0.081 D_B: 0.158 G_B: 0.335 cycle_B: 0.476 idt_B: 0.030
+saving the latest model (epoch 1, total_iters 1900)
+(epoch: 2000, iters: 2000, time: 139.530, data: 0.024) D_A: 0.276 G_A: 0.372 cycle_A: 0.153 idt_A: 0.139 D_B: 0.270 G_B: 0.331 cycle_B: 0.356 idt_B: 0.054
+saving the latest model (epoch 1, total_iters 2000)
+(epoch: 2100, iters: 2100, time: 0.979, data: 0.018) D_A: 0.621 G_A: 0.594 cycle_A: 0.140 idt_A: 0.101 D_B: 0.270 G_B: 0.266 cycle_B: 0.246 idt_B: 0.048
+saving the latest model (epoch 1, total_iters 2100)
+(epoch: 2200, iters: 2200, time: 1.027, data: 0.019) D_A: 0.220 G_A: 0.303 cycle_A: 0.125 idt_A: 0.120 D_B: 0.184 G_B: 0.562 cycle_B: 0.312 idt_B: 0.041
+saving the latest model (epoch 1, total_iters 2200)
+(epoch: 2300, iters: 2300, time: 1.063, data: 0.019) D_A: 0.203 G_A: 0.323 cycle_A: 0.162 idt_A: 0.089 D_B: 0.302 G_B: 0.481 cycle_B: 0.332 idt_B: 0.047
+saving the latest model (epoch 1, total_iters 2300)
+C:\ProgramData\Miniconda3\envs\SubXR-GAN\lib\site-packages\torch\optim\lr_scheduler.py:134: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  "https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate", UserWarning)
+Traceback (most recent call last):
+  File "C:\Users\micha\Research\SubXR-GAN\Models\cycle_gan\train.py", line 51, in <module>
+    model.set_input(data)         # unpack data from dataset and apply preprocessing
+  File "C:\Users\micha\Research\SubXR-GAN\Models\cycle_gan\models\cycle_gan_model.py", line 108, in set_input
+    self.real_A = input['A' if AtoB else 'B'].to(self.device)
+KeyboardInterrupt

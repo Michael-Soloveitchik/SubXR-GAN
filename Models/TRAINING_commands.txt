@@ -8,6 +8,11 @@ python C:\Users\micha\Research\SubXR-GAN\Models\cycle_gan\train.py --batch_size 
 #Cycle GAN + lambdaB 40
 python C:\Users\micha\Research\SubXR-GAN\Models\cycle_gan\train.py --batch_size 1 --lambda_identity 1.00 --lambda_B 40 --dataroot C:\Users\micha\Research\SubXR-GAN\Datasets\drr_complete_2_xr_complete --name drr_complete_2_xr_complete_unet128_100_lambda_b_40 --model cycle_gan --netG unet_128 --preprocess crop --no_flip --crop_size 768 --num_threads 0 --save_by_iter --save_epoch_freq 2000 --save_latest_freq 200 --print_freq 200 --update_html_freq 200 --display_freq 200
 python C:\Users\micha\Research\SubXR-GAN\Models\cycle_gan\train.py --batch_size 1 --lambda_identity 0.10 --lambda_B 40 --dataroot C:\Users\micha\Research\SubXR-GAN\Datasets\drr_complete_2_xr_complete --name drr_complete_2_xr_complete_unet128_010_lambda_b_40 --model cycle_gan --netG unet_128 --preprocess crop --no_flip --crop_size 768 --num_threads 0 --save_by_iter --save_epoch_freq 2000 --save_latest_freq 200 --print_freq 200 --update_html_freq 200 --display_freq 200
+python C:\Users\micha\Research\SubXR-GAN\Models\cycle_gan\train.py --batch_size 1 --lambda_identity 0.099 --lambda_B 40 --dataroot C:\Users\micha\Research\SubXR-GAN\Datasets\drr_complete_2_xr_complete --name drr_complete_2_xr_complete_unet128_009_lambda_b_40 --model cycle_gan --netG unet_128 --preprocess crop --no_flip --crop_size 768 --num_threads 0 --save_by_iter --save_epoch_freq 2000 --save_latest_freq 200 --print_freq 200 --update_html_freq 200 --display_freq 200
+
+
+lambdaB 100
+python C:\Users\micha\Research\SubXR-GAN\Models\cycle_gan\train.py --batch_size 1 --lambda_identity 0.50 --lambda_B 100 --dataroot C:\Users\micha\Research\SubXR-GAN\Datasets\drr_complete_2_xr_complete --name drr_complete_2_xr_complete_unet128_050_lambda_b_100 --model cycle_gan --netG unet_128 --preprocess crop --no_flip --crop_size 768 --num_threads 0 --save_by_iter --save_epoch_freq 2000 --save_latest_freq 200 --print_freq 200 --update_html_freq 200 --display_freq 200
 
 lambda_A 20
 C:\ProgramData\Miniconda3\envs\SubXR-GAN\python.exe -m visdom.server -p 8097 &

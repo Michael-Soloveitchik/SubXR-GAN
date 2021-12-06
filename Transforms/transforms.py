@@ -151,52 +151,52 @@ def resize_transform(im, H,W, dataset_type, im_name):
     LR_im = cv2.resize(im, (H, W))
     return LR_im
 
-def numpy_2_torch_transform(im, dataset_type, im_name):
-    torch_im = (torch.from_numpy(np.transpose(im, [2, 0, 1])[None]) / 255.).to(device)
-
-    return torch_im
-
-def torch_2_numpy_transform(im, dataset_type, im_name):
-    np_im = np.transpose(im[0].float().cpu().detach().numpy(), [1, 2, 0])*255.
-    return np_im
-
 def super_resolution_transform(im, SR_GAN_path, LR=384, HR=768, TR=650, dataset_type="", im_name=""):
     SR_GAN.load_state_dict(torch.load(SR_GAN_path, map_location=device))
     SR_GAN.eval()
     # SR_GAN.half()
     if im.shape[1]<TR:
         LR_im = resize_transform(im, LR,LR,dataset_type, im_name)
-        torch_LR_im = numpy_2_torch_transform(LR_im,dataset_type, im_name)
+        torch_LR_im = (torch.from_numpy(np.transpose(LR_im, [2, 0, 1])[None]) / 255.).to(device)
         torch_HR_im = SR_GAN(torch_LR_im)
-        HR_im = torch_2_numpy_transform(torch_HR_im,dataset_type, im_name)
+        HR_im = np.transpose(torch_HR_im[0].float().cpu().detach().numpy(), [1, 2, 0])*255
     else:
         HR_im = resize_transform(im, HR,HR,dataset_type, im_name)
     return HR_im
+def binarization_transform(im, tresh=229,dataset_type="", im_name=""):
+    binarized_im = cv2.threshold(im, tresh, 255,cv2.THRESH_BINARY)[1]/255
+    return binarized_im
 
-def drr_2_xr_style_transform(im,model_dir, iter, dataset_type, im_name):
-    name = dataset_type.lower()
-    dir_tmp = os.path.abspath("./Datasets/{name}/temp".format(name=name))
-    create_if_not_exists(dir_tmp)
-    cv2.imwrite(os.path.join(dir_tmp,'drr2xr.jpg'),im)
+def drr_2_xr_style_transform(im, model_dir, iter, mask_name, dataset_type, im_name):
+    dataset_name = dataset_type.lower()
+    temp_drr2xr_dir = os.path.abspath("./Datasets/{name}/temp".format(name=dataset_name))
+    create_if_not_exists(temp_drr2xr_dir)
+    cv2.imwrite(os.path.join(temp_drr2xr_dir,'drr2xr.jpg'),im)
+
+    # Cycle-GAN activation
     shape_inp = im.shape[0]
     style_transform_name = model_dir.split('\\')[-1]
     model_dir = '\\'.join(model_dir.split('\\')[:-2])
-    cmd = (f"python {model_dir}\\test.py --model_suffix _A --dataroot {dir_tmp} --name . --load_iter {iter} --netG unet_128 --checkpoints_dir {os.path.join(model_dir, 'SAMPLES',style_transform_name)} --model test --no_dropout --crop_size {shape_inp} --results_dir {dir_tmp}")
+    cmd = (f"python {model_dir}\\test.py --model_suffix _A --dataroot {temp_drr2xr_dir} --name . --load_iter {iter} --netG unet_128 --checkpoints_dir {os.path.join(model_dir, 'SAMPLES',style_transform_name)} --model test --no_dropout --crop_size {shape_inp} --results_dir {temp_drr2xr_dir}")
     subprocess.call(cmd)
-    im = cv2.imread(os.path.join(dir_tmp,f'test_latest_iter{iter}','images','drr2xr_fake.png'))
-    mask_name = ""
-    if ('ulna' in name):
-        mask_name = 'Ulna_mask'
-    elif('radius' in name):
-        mask_name = 'Radius_mask'
-    if mask_name:
-        dir_mask = os.path.abspath(f"./Data/{mask_name}")
-        mask_file_path = os.path.join(dir_mask, im_name.replace('Input',mask_name))
-        print("EVRIKA!!!")
-        mask = cv2.imread(mask_file_path)
-        im = im * mask
-    shutil.rmtree(dir_tmp)
-    return im
+    xr_im = cv2.imread(os.path.join(temp_drr2xr_dir,f'test_latest_iter{iter}','images','drr2xr_fake.png'))
+    shutil.rmtree(temp_drr2xr_dir)
+
+    #Apply Mask
+    # if ('ulna_and_radius' == mask_name.lower()):
+    #     mask_dir_name = 'Ulna_and_Radius_mask'
+    # elif('ulna' == mask_name.lower()):
+    #     mask_dir_name = 'Ulna_mask'
+    # elif('ulna_and_radius' == mask_name.lower()):
+    #     mask_dir_name = 'Radius_mask'
+    # else:
+    #     print('No mask_target argument provided')
+    #     return None
+    # mask_file_path = os.path.join(os.path.abspath(os.path.join(f"./Data/DRR_complete/{mask_dir_name}", im_name.replace('Input',mask_dir_name))))
+    # mask = cv2.imread(mask_file_path)
+    # mask = cv2.threshold(mask, 229, 255,cv2.THRESH_BINARY)[1]/255
+    # xr_im = np.where(mask.astype(bool), xr_im, im)
+    return xr_im
 
 TRANSFORMS = {
     "down_sample":      resize_transform,
@@ -206,6 +206,7 @@ TRANSFORMS = {
     "SR_GAN":           super_resolution_transform,
     "DRR_2_XR" :        drr_2_xr_style_transform,
     "subtraction_AU":   super_resolution_transform,
+    "binarization": binarization_transform
 }
 
 

@@ -31,11 +31,11 @@ def create_datasets(configs, dataset_type):
         idx_im_name = 0
         augmentation = parse_augmentation(configs['Datasets'][dataset_type]['augmentation_'+side])
         in_dir_size = size_dir_content(configs['Datasets'][dataset_type]['in_dir_'+side])
-        transform = parse_transforms(configs['Datasets'][dataset_type]['transform_' + side],dataset_type)
+        transform = parse_transforms(configs['Datasets'][dataset_type]['transform_' + side],dataset_type=dataset_type)
         for i, im_name in enumerate(tqdm(dir_content(configs['Datasets'][dataset_type]['in_dir_'+side], random=False))):
             im_raw = cv2.imread(os.path.join(configs['Datasets'][dataset_type]['in_dir_'+side], im_name))
             seeds = np.arange(seeds_permutations[i], seeds_permutations[i] + K)
-            im_raw_transformed = transform(im_raw,im_name)
+            im_raw_transformed = transform(im_raw,im_name=im_name)
             for seed in seeds:
                 random.seed(seed);
                 np.random.seed(seed);
@@ -62,37 +62,5 @@ if __name__ == '__main__':
     # create_datasets(configs, "SR_XR_complete")
     # create_datasets(configs, "DRR_complete_2_XR_complete")
     create_datasets(configs, "XR_complete_2_Radius_mask")
-    create_datasets(configs, "XR_complete_2_Ulna_mask")
-    #
-    # data_path  = r'C:\Users\micha\PycharmProjects\CT_DRR\Data'
-    # datasets_path  = r'C:\Users\micha\PycharmProjects\CT_DRR\Datasets'
-    # # remove_and_create(os.path.join(datasets_path))
-    # dir_content = lambda x,y: sorted(os.listdir(os.path.join(data_path, x,y)))
-    #
-    # input_dir =  dir_content('DRR','Input')
-    # ulna_dir =   dir_content('DRR','Ulna')
-    # radius_dir = dir_content('DRR','Radius')
-
-    # xr_dir     = dir_content('X-Ray','')
-    #
-    # print (len(input_dir),len(ulna_dir),len(radius_dir))
-    # assert (len(input_dir)==len(ulna_dir)==len(radius_dir))
-    # n1 = len(input_dir)
-    # n2 = len(xr_dir)
-    # permutated_input_indexes = np.random.permutation(n1)
-    # permutated_xr_indexes = np.random.permutation(n2)
-    #
-    # # train sets
-    # for j in prange(12):
-    #     print('DRR train set, augment ',j,'/12: ')
-    #     for i in tqdm(permutated_input_indexes[:int(n1*0.9)]):
-    #         f_name = input_dir[i]
-    #         create_datasets(data_path,datasets_path,f_name,j,train=True)
-    #
-    #     # test sets
-    #     print('DRR test set, augment ',j,'/12: ')
-    #     for i in tqdm(permutated_input_indexes[int(n1*0.9):]):
-    #         f_name = input_dir[i]
-    #         create_datasets(data_path,datasets_path,f_name,j, train=False)
-    #         # xr2ulna
+    # create_datasets(configs, "XR_complete_2_Ulna_mask")
     #

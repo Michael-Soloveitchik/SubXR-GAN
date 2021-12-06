@@ -1,0 +1,93 @@
+2021-11-21 15:57:35,216 INFO    MainThread:16024 [internal.py:wandb_internal():90] W&B internal server running at pid: 16024, started at: 2021-11-21 15:57:35.215419
+2021-11-21 15:57:35,217 INFO    WriterThread:16024 [datastore.py:open_for_write():77] open: C:\Users\micha\Research\SubXR-GAN\Models\cycle_gan\wandb\offline-run-20211121_155734-23i674tn\run-23i674tn.wandb
+2021-11-21 15:57:35,218 DEBUG   HandlerThread:16024 [handler.py:handle_request():130] handle_request: run_start
+2021-11-21 15:57:37,571 DEBUG   HandlerThread:16024 [meta.py:__init__():40] meta init
+2021-11-21 15:57:37,571 DEBUG   HandlerThread:16024 [meta.py:__init__():54] meta init done
+2021-11-21 15:57:37,574 DEBUG   HandlerThread:16024 [meta.py:probe():214] probe
+2021-11-21 15:57:37,610 DEBUG   HandlerThread:16024 [meta.py:_setup_git():204] setup git
+2021-11-21 15:57:37,669 DEBUG   HandlerThread:16024 [meta.py:_setup_git():211] setup git done
+2021-11-21 15:57:37,670 DEBUG   HandlerThread:16024 [meta.py:_save_pip():58] save pip
+2021-11-21 15:57:37,670 DEBUG   HandlerThread:16024 [meta.py:_save_pip():72] save pip done
+2021-11-21 15:57:37,670 DEBUG   HandlerThread:16024 [meta.py:_save_conda():79] save conda
+2021-11-21 15:57:37,673 ERROR   HandlerThread:16024 [meta.py:_save_conda():88] Error saving conda packages
+Traceback (most recent call last):
+  File "C:\ProgramData\Miniconda3\envs\SubXR-GAN\lib\site-packages\wandb\sdk\internal\meta.py", line 85, in _save_conda
+    ["conda", "env", "export"], stdout=f, stderr=subprocess.DEVNULL
+  File "C:\ProgramData\Miniconda3\envs\SubXR-GAN\lib\subprocess.py", line 339, in call
+    with Popen(*popenargs, **kwargs) as p:
+  File "C:\ProgramData\Miniconda3\envs\SubXR-GAN\lib\subprocess.py", line 800, in __init__
+    restore_signals, start_new_session)
+  File "C:\ProgramData\Miniconda3\envs\SubXR-GAN\lib\subprocess.py", line 1207, in _execute_child
+    startupinfo)
+FileNotFoundError: [WinError 2] The system cannot find the file specified
+2021-11-21 15:57:37,675 DEBUG   HandlerThread:16024 [meta.py:_save_conda():89] save conda done
+2021-11-21 15:57:37,675 DEBUG   HandlerThread:16024 [meta.py:probe():252] probe done
+2021-11-21 16:23:23,000 WARNING MainThread:16024 [internal.py:wandb_internal():146] Internal process interrupt: 1
+2021-11-21 16:23:24,015 DEBUG   SenderThread:16024 [sender.py:send():238] send: exit
+2021-11-21 16:23:24,016 INFO    SenderThread:16024 [sender.py:send_exit():370] handling exit code: 255
+2021-11-21 16:23:24,016 INFO    SenderThread:16024 [sender.py:send_exit():372] handling runtime: 1548
+2021-11-21 16:23:24,016 DEBUG   HandlerThread:16024 [handler.py:handle_request():130] handle_request: poll_exit
+2021-11-21 16:23:24,016 INFO    SenderThread:16024 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2021-11-21 16:23:24,016 INFO    SenderThread:16024 [sender.py:send_exit():382] send defer
+2021-11-21 16:23:24,016 DEBUG   SenderThread:16024 [sender.py:send_request():252] send_request: poll_exit
+2021-11-21 16:23:24,017 DEBUG   HandlerThread:16024 [handler.py:handle_request():130] handle_request: defer
+2021-11-21 16:23:24,017 INFO    HandlerThread:16024 [handler.py:handle_request_defer():147] handle defer: 0
+2021-11-21 16:23:24,017 DEBUG   SenderThread:16024 [sender.py:send_request():252] send_request: defer
+2021-11-21 16:23:24,017 INFO    SenderThread:16024 [sender.py:send_request_defer():391] handle sender defer: 0
+2021-11-21 16:23:24,017 INFO    SenderThread:16024 [sender.py:transition_state():395] send defer: 1
+2021-11-21 16:23:24,017 DEBUG   HandlerThread:16024 [handler.py:handle_request():130] handle_request: defer
+2021-11-21 16:23:24,017 INFO    HandlerThread:16024 [handler.py:handle_request_defer():147] handle defer: 1
+2021-11-21 16:23:24,125 DEBUG   HandlerThread:16024 [handler.py:handle_request():130] handle_request: poll_exit
+2021-11-21 16:23:24,125 DEBUG   SenderThread:16024 [sender.py:send_request():252] send_request: defer
+2021-11-21 16:23:24,125 INFO    SenderThread:16024 [sender.py:send_request_defer():391] handle sender defer: 1
+2021-11-21 16:23:24,125 INFO    SenderThread:16024 [sender.py:transition_state():395] send defer: 2
+2021-11-21 16:23:24,125 DEBUG   SenderThread:16024 [sender.py:send_request():252] send_request: poll_exit
+2021-11-21 16:23:24,126 DEBUG   HandlerThread:16024 [handler.py:handle_request():130] handle_request: defer
+2021-11-21 16:23:24,126 INFO    HandlerThread:16024 [handler.py:handle_request_defer():147] handle defer: 2
+2021-11-21 16:23:24,126 DEBUG   SenderThread:16024 [sender.py:send_request():252] send_request: defer
+2021-11-21 16:23:24,126 INFO    SenderThread:16024 [sender.py:send_request_defer():391] handle sender defer: 2
+2021-11-21 16:23:24,127 INFO    SenderThread:16024 [sender.py:transition_state():395] send defer: 3
+2021-11-21 16:23:24,127 DEBUG   HandlerThread:16024 [handler.py:handle_request():130] handle_request: defer
+2021-11-21 16:23:24,127 INFO    HandlerThread:16024 [handler.py:handle_request_defer():147] handle defer: 3
+2021-11-21 16:23:24,127 DEBUG   SenderThread:16024 [sender.py:send_request():252] send_request: defer
+2021-11-21 16:23:24,127 INFO    SenderThread:16024 [sender.py:send_request_defer():391] handle sender defer: 3
+2021-11-21 16:23:24,127 INFO    SenderThread:16024 [sender.py:transition_state():395] send defer: 4
+2021-11-21 16:23:24,127 DEBUG   HandlerThread:16024 [handler.py:handle_request():130] handle_request: defer
+2021-11-21 16:23:24,127 INFO    HandlerThread:16024 [handler.py:handle_request_defer():147] handle defer: 4
+2021-11-21 16:23:24,128 DEBUG   SenderThread:16024 [sender.py:send_request():252] send_request: defer
+2021-11-21 16:23:24,128 INFO    SenderThread:16024 [sender.py:send_request_defer():391] handle sender defer: 4
+2021-11-21 16:23:24,128 INFO    SenderThread:16024 [sender.py:transition_state():395] send defer: 5
+2021-11-21 16:23:24,128 DEBUG   HandlerThread:16024 [handler.py:handle_request():130] handle_request: defer
+2021-11-21 16:23:24,128 INFO    HandlerThread:16024 [handler.py:handle_request_defer():147] handle defer: 5
+2021-11-21 16:23:24,128 DEBUG   SenderThread:16024 [sender.py:send_request():252] send_request: defer
+2021-11-21 16:23:24,128 INFO    SenderThread:16024 [sender.py:send_request_defer():391] handle sender defer: 5
+2021-11-21 16:23:24,128 INFO    SenderThread:16024 [sender.py:transition_state():395] send defer: 6
+2021-11-21 16:23:24,128 DEBUG   HandlerThread:16024 [handler.py:handle_request():130] handle_request: defer
+2021-11-21 16:23:24,128 INFO    HandlerThread:16024 [handler.py:handle_request_defer():147] handle defer: 6
+2021-11-21 16:23:24,128 DEBUG   SenderThread:16024 [sender.py:send_request():252] send_request: defer
+2021-11-21 16:23:24,128 INFO    SenderThread:16024 [sender.py:send_request_defer():391] handle sender defer: 6
+2021-11-21 16:23:24,128 INFO    SenderThread:16024 [sender.py:transition_state():395] send defer: 7
+2021-11-21 16:23:24,129 DEBUG   HandlerThread:16024 [handler.py:handle_request():130] handle_request: defer
+2021-11-21 16:23:24,129 INFO    HandlerThread:16024 [handler.py:handle_request_defer():147] handle defer: 7
+2021-11-21 16:23:24,129 DEBUG   SenderThread:16024 [sender.py:send_request():252] send_request: defer
+2021-11-21 16:23:24,129 INFO    SenderThread:16024 [sender.py:send_request_defer():391] handle sender defer: 7
+2021-11-21 16:23:24,129 INFO    SenderThread:16024 [sender.py:transition_state():395] send defer: 8
+2021-11-21 16:23:24,129 DEBUG   HandlerThread:16024 [handler.py:handle_request():130] handle_request: defer
+2021-11-21 16:23:24,129 INFO    HandlerThread:16024 [handler.py:handle_request_defer():147] handle defer: 8
+2021-11-21 16:23:24,129 DEBUG   SenderThread:16024 [sender.py:send_request():252] send_request: defer
+2021-11-21 16:23:24,129 INFO    SenderThread:16024 [sender.py:send_request_defer():391] handle sender defer: 8
+2021-11-21 16:23:24,129 INFO    SenderThread:16024 [sender.py:transition_state():395] send defer: 9
+2021-11-21 16:23:24,129 DEBUG   SenderThread:16024 [sender.py:send():238] send: final
+2021-11-21 16:23:24,130 DEBUG   HandlerThread:16024 [handler.py:handle_request():130] handle_request: defer
+2021-11-21 16:23:24,130 INFO    HandlerThread:16024 [handler.py:handle_request_defer():147] handle defer: 9
+2021-11-21 16:23:24,130 DEBUG   SenderThread:16024 [sender.py:send_request():252] send_request: defer
+2021-11-21 16:23:24,130 INFO    SenderThread:16024 [sender.py:send_request_defer():391] handle sender defer: 9
+2021-11-21 16:23:24,228 DEBUG   HandlerThread:16024 [handler.py:handle_request():130] handle_request: poll_exit
+2021-11-21 16:23:24,228 DEBUG   SenderThread:16024 [sender.py:send_request():252] send_request: poll_exit
+2021-11-21 16:23:24,229 DEBUG   HandlerThread:16024 [handler.py:handle_request():130] handle_request: get_summary
+2021-11-21 16:23:24,230 DEBUG   HandlerThread:16024 [handler.py:handle_request():130] handle_request: sampled_history
+2021-11-21 16:23:24,231 DEBUG   HandlerThread:16024 [handler.py:handle_request():130] handle_request: shutdown
+2021-11-21 16:23:24,231 INFO    HandlerThread:16024 [handler.py:finish():731] shutting down handler
+2021-11-21 16:23:25,132 INFO    WriterThread:16024 [datastore.py:close():281] close: C:\Users\micha\Research\SubXR-GAN\Models\cycle_gan\wandb\offline-run-20211121_155734-23i674tn\run-23i674tn.wandb
+2021-11-21 16:23:25,242 INFO    SenderThread:16024 [sender.py:finish():1091] shutting down sender
+2021-11-21 16:23:25,242 INFO    MainThread:16024 [internal.py:handle_exit():77] Internal process exited

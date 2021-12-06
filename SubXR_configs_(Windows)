@@ -129,7 +129,7 @@
             ],
             "transform_A": [
                                 {
-                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025", 9000]
+                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025", 9000, "Ulna_and_Radius"]
                                 },
                                  {
                                      "crop": [768]
@@ -137,14 +137,17 @@
                             ],
             "transform_B": [
                                 {
+                                    "binarization": []
+                                },
+                                {
                                     "crop": [768]
                                 }
                             ],
-            "augmentation_A": "xr_complete_2_ulna_mask_AU",
-            "augmentation_B": "xr_complete_2_ulna_mask_AU"
+            "augmentation_A": "full_xr_AU",
+            "augmentation_B": "full_xr_AU"
         },
         "XR_complete_2_Radius_mask" :    {
-            "in_dir_A"          : "./Data/DRR_complete/Input",
+            "in_dir_A"          : "",
             "in_dir_B"          : "./Data/DRR_complete/Radius_mask",
             "out_dir"         : "./Datasets/xr_complete_2_radius_mask",
             "out_sub_folders" : [
@@ -155,7 +158,7 @@
             ],
             "transform_A": [
                                 {
-                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025", 9000]
+                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025", 9000, "Ulna_and_Radius"]
                                 },
                                  {
                                      "crop": [768]
@@ -163,11 +166,14 @@
                             ],
             "transform_B": [
                                 {
+                                    "binarization": []
+                                },
+                                 {
                                     "crop": [768]
                                 }
                             ],
-            "augmentation_A": "xr_complete_2_radius_mask_AU",
-            "augmentation_B": "xr_complete_2_radius_mask_AU"
+            "augmentation_A": "full_xr_AU",
+            "augmentation_B": "full_xr_AU"
         },
         "DRR_complete_2_XR_complete"    :    {
             "in_dir_A"         : ".\\Data\\DRR_complete\\Input",
@@ -207,7 +213,7 @@
             ],
             "transform_A": [
                                 {
-                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025", 9000]
+                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025", 9000, "Ulna_and_Radius"]
                                 },
                               {
                                   "crop": [768]
@@ -215,14 +221,14 @@
                             ],
             "transform_B": [
                                 {
-                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025", 9000]
+                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025", 9000, "Ulna"]
                                 },
                               {
                                   "crop": [768]
                               }
                            ],
-            "augmentation_A": "subtraction_AU",
-            "augmentation_B": "subtraction_AU"
+            "augmentation_A": "full_xr_AU",
+            "augmentation_B": "full_xr_AU"
         },
         "XR_complete_2_Radius_complete" :       {
             "in_dir" : ".\\Data\\DRR_complete",
@@ -235,7 +241,7 @@
             ],
             "transform_A": [
                                 {
-                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025", 9000]
+                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025", 9000, "Ulna_and_Radius"]
                                 },
                               {
                                   "crop": [768]
@@ -243,14 +249,14 @@
                             ],
             "transform_B": [
                                 {
-                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025", 9000]
+                                    "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025", 9000, "Radius"]
                                 },
                               {
                                   "crop": [768]
                               }
                            ],
-            "augmentation_A": "subtraction_AU",
-            "augmentation_B": "subtraction_AU"
+            "augmentation_A": "full_xr_AU",
+            "augmentation_B": "full_xr_AU"
         },
         "XR_complete_2_Radius_and_Ulna_complete" :      {
             "in_dir" : ".\\Data\\DRR_complete",
@@ -263,12 +269,25 @@
                 "testB1",
                 "testB2"
             ],
-            "transform_A": {
-                            },
-            "transform_B": {
-                            },
-            "augmentation_A": "sr_xr_complete_AU",
-            "augmentation_B": "sr_xr_complete_AU"
+             "transform_A": [
+                                 {
+                                     "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025", 9000, "Ulna_and_Radius"]
+                                 },
+                               {
+                                   "crop": [768]
+                               }
+                             ],
+             "transform_B": [
+                                 {
+                                     "DRR_2_XR": ["C:\\Users\\micha\\Research\\SubXR-GAN\\Models\\cycle_gan\\SAMPLEs\\drr_complete_2_xr_complete_unet128_025", 9000, "Radius"]
+                                 },
+                               {
+                                   "crop": [768]
+                               }
+                            ],
+             "augmentation_A": "full_xr_AU",
+             "augmentation_B": "full_xr_AU"
+
         }
     }
 }
