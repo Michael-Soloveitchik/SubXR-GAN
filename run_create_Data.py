@@ -13,9 +13,16 @@ if __name__=='__main__':
             if not xr_im.endswith('.jpg'):
                 continue
             img = cv2.imread(os.path.join(in_dir, xr_dir,xr_im))
+            # plt.figure(0)
+            # plt.imshow(img)
             img,angle = self_rotate_transform(img)
+            # plt.figure(1)
+            # plt.imshow(img)
             img,center = self_crop_transform(img)
-            img = padding_transform(img)
+            # plt.figure(2)
+            # plt.imshow(img)
+            # img = padding_transform(img)
             cv2.imwrite(os.path.join(out_dir, xr_dir,xr_im), img)
+            plt.figure(3)
             plt.imshow(img)
             plt.show()

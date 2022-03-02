@@ -6,7 +6,6 @@ from utils import remove_and_create, create_if_not_exists
 from SubXR_configs_parser import SubXRParser
 from utils import *
 def initialze(configs):
-    header = "Data"
     for data_type in configs["Data"]:
         for data_source in configs["Data"][data_type]:
             if configs["Data"][data_type][data_source]['in_dir']:
@@ -16,6 +15,7 @@ def initialze(configs):
                         continue
                     for dir in configs["Data"][data_type][data_source]['in_sub_folders']:
                         create_if_not_exists(os.path.join(configs["Data"][data_type][data_source]['in_dir'],patient_dir, 'pre_DRR',dir))
+                    create_if_not_exists(configs["Data"][data_type][data_source]['out_dir'])
                     for dir in configs["Data"][data_type][data_source]['out_sub_folders']:
                         create_if_not_exists(os.path.join(configs["Data"][data_type][data_source]['out_dir'],dir))
 

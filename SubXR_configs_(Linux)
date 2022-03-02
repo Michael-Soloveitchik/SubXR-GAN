@@ -43,14 +43,16 @@
                     "Ulna_mask",
                     "Radius_mask",
                     "Ulna_and_Radius_mask"
-                ]
+                ],
+                "transform" : {
+                    "translate" : [-100]
+                }
             },
             "XR"  : {
                 "in_dir"  : "/cs/labs/werman/mick.kab/raw_Data/X-Ray - Data - (2)",
                 "in_sub_folders": [],
                 "out_dir" : "./Data/XR_complete",
                 "out_sub_folders": []
-
             }
         }
     },

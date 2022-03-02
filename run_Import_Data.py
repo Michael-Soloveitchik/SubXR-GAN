@@ -27,7 +27,7 @@ def import_data(configs):
                             # shutil.copy(os.path.join(configs['Data'][data_type][data_source]['in_dir'],dir,im_path), os.path.join(configs['Data'][data_type][data_source]['out_dir'],new_im_path))
                             i += 1
                 elif data_source == 'DRR':
-
+                    pass
                     transform = parse_transforms(configs['Data'][data_type][data_source]['transform'],data_type)
 
                     for dir in tqdm(dir_content(configs['Data'][data_type][data_source]['in_dir'],random=False)):
@@ -38,10 +38,11 @@ def import_data(configs):
                             for orientation in configs["Data"][data_type][data_source]['in_sub_folders']:
                                 pre_DRR_orientation_path = os.path.join(configs['Data'][data_type][data_source]['in_dir'], dir,
                                                             "pre_DRR",orientation)
-                                if 'mask' not in prefix:
-                                    prefix_files = sorted([f for f in os.listdir(pre_DRR_orientation_path) if f.startswith(prefix) and f.endswith('.png') and (not 'mask' in f)])
+                                if 'Mask' not in prefix:
+                                    prefix_files = sorted([f for f in os.listdir(pre_DRR_orientation_path) if f.startswith(prefix) and f.endswith('.jpg') and (not 'Mask' in f)])
                                 else:
-                                    prefix_files = sorted([f for f in os.listdir(pre_DRR_orientation_path) if f.startswith(prefix) and f.endswith('.png') and ('mask' in f)])
+                                    prefix_files = sorted([f for f in os.listdir(pre_DRR_orientation_path) if f.startswith(prefix) and f.endswith('.jpg') and ('Mask' in f)])
+                                print(pre_DRR_orientation_path)
                                 for im_name in tqdm(prefix_files):
                                     new_im_name = prefix+'_'+str(i).zfill(5)+".jpg"
                                     shutil.copy(os.path.join(pre_DRR_orientation_path, im_name),
@@ -55,7 +56,7 @@ def import_data(configs):
                                     nh_i_im = transform(nh_i_im,im_name)
                                     cv2.imwrite(rotated_im_path, nh_i_im)
                                     i+=1
-                                    # crop(os.path.join(dataset_path, s, new_totall))
+                                    # crop(os.path.join(dataset_path, s, new_totall))'''
 
 if __name__ == '__main__':
     configs = SubXRParser()

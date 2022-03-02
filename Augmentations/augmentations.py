@@ -14,9 +14,11 @@ sr_xr_complete_AU = A.Compose([
     # A.Perspective (p=0.3),
     ])
 drr_complete_2_xr_complete_AU = A.Compose([
-    A.ShiftScaleRotate(shift_limit=0.1, rotate_limit=10, p=0.5),
-    A.Sharpen(),
+    A.ShiftScaleRotate(shift_limit=0.5, rotate_limit=20, p=1.0),
     # A.Perspective (p=0.3),
+    A.Sharpen(),
+    A.VerticalFlip(0.5),
+    A.RandomCrop(64, 64, always_apply=True, p=1.0)
     # A.Emboss(),
     # A.RandomBrightnessContrast(),
 ])
